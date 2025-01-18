@@ -83,12 +83,12 @@ paths:
           schema:
             type: 'object'
             properties:
-              username:
+              email:
                 type: 'string'
               password:
                 type: 'string'
             example:
-              username: 'john_doe'
+              email: 'john@example.com'
               password: 'Password123!'
       responses:
         200:
@@ -102,6 +102,7 @@ paths:
                 type: 'string'
             example:
               token: 'eyJraWQiOiJ...'
+              idToken: 'eyJraWQiOiJ...'
               refreshToken: 'eyJraWQiOiJ...'
         401:
           description: 'Unauthorized'
