@@ -108,87 +108,6 @@ paths:
           description: 'Unauthorized'
         500:
           description: 'Internal server error'
-  /inventory/items:
-    get:
-      tags:
-        - 'inventory'
-      summary: 'Get all inventory items'
-      description: 'Retrieves a list of all inventory items.'
-      operationId: 'getInventoryItems'
-      produces:
-        - 'application/json'
-      responses:
-        200:
-          description: 'List of inventory items'
-          schema:
-            type: 'array'
-            items:
-              $ref: '#/definitions/InventoryItem'
-        500:
-          description: 'Internal server error'
-    post:
-      tags:
-        - 'inventory'
-      summary: 'Add a new inventory item'
-      description: 'Creates a new inventory item.'
-      operationId: 'addInventoryItem'
-      consumes:
-        - 'application/json'
-      produces:
-        - 'application/json'
-      parameters:
-        - in: 'body'
-          name: 'body'
-          description: 'Details of the new inventory item'
-          required: true
-          schema:
-            $ref: '#/definitions/InventoryItem'
-      responses:
-        201:
-          description: 'Item created successfully'
-        400:
-          description: 'Invalid input'
-        500:
-          description: 'Internal server error'
-  /sales/transactions:
-    post:
-      tags:
-        - 'sales'
-      summary: 'Record a sale'
-      description: 'Records a new sales transaction.'
-      operationId: 'recordSale'
-      consumes:
-        - 'application/json'
-      produces:
-        - 'application/json'
-      parameters:
-        - in: 'body'
-          name: 'body'
-          description: 'Details of the sales transaction'
-          required: true
-          schema:
-            type: 'object'
-            properties:
-              itemId:
-                type: 'string'
-              quantity:
-                type: 'integer'
-              totalPrice:
-                type: 'number'
-              paymentMethod:
-                type: 'string'
-            example:
-              itemId: 'item123'
-              quantity: 2
-              totalPrice: 50.00
-              paymentMethod: 'credit_card'
-      responses:
-        201:
-          description: 'Transaction recorded successfully'
-        400:
-          description: 'Invalid input'
-        500:
-          description: 'Internal server error'
   /user/profile:
     get:
       tags:
@@ -214,25 +133,6 @@ paths:
         500:
           description: 'Internal server error'
 definitions:
-  InventoryItem:
-    type: 'object'
-    properties:
-      id:
-        type: 'string'
-      name:
-        type: 'string'
-      description:
-        type: 'string'
-      quantity:
-        type: 'integer'
-      price:
-        type: 'number'
-    example:
-      id: 'item123'
-      name: 'Laptop'
-      description: 'High-performance laptop'
-      quantity: 10
-      price: 1000.00
   UserProfile:
     type: 'object'
     properties:
