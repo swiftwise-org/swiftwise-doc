@@ -10,8 +10,8 @@ info:
   license:
     name: 'Apache 2.0'
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-host: 'z0a6v7mgd2.execute-api.us-west-2.amazonaws.com'
-basePath: '/dev'
+host: 'swiftwise.api.com'
+basePath: '/v1'
 tags:
   - name: 'auth'
     description: 'Endpoints for user authentication and authorization'
@@ -64,75 +64,12 @@ paths:
           description: 'Invalid input'
         500:
           description: 'Internal server error'
-  /auth/confirm-email:
-    post:
-      tags:
-        - 'auth'
-      summary: 'Confirm email verification'
-      description: "Verifies a user's email using the confirmation code sent during registration."
-      operationId: 'confirmEmail'
-      consumes:
-        - 'application/json'
-      produces:
-        - 'application/json'
-      parameters:
-        - in: 'body'
-          name: 'body'
-          description: 'Email confirmation details'
-          required: true
-          schema:
-            type: 'object'
-            properties:
-              username:
-                type: 'string'
-              confirmationCode:
-                type: 'string'
-            example:
-              username: 'john_doe'
-              confirmationCode: '123456'
-      responses:
-        200:
-          description: 'Email confirmed successfully'
-        400:
-          description: 'Invalid confirmation code'
-        500:
-          description: 'Internal server error'
-  /auth/resend-code:
-    post:
-      tags:
-        - 'auth'
-      summary: 'Resend confirmation code'
-      description: "Resends a new confirmation code to the user's email."
-      operationId: 'resendConfirmationCode'
-      consumes:
-        - 'application/json'
-      produces:
-        - 'application/json'
-      parameters:
-        - in: 'body'
-          name: 'body'
-          description: 'Username to resend the confirmation code'
-          required: true
-          schema:
-            type: 'object'
-            properties:
-              username:
-                type: 'string'
-            example:
-              username: 'john_doe'
-      responses:
-        200:
-          description: 'Confirmation code sent successfully'
-        400:
-          description: 'Invalid input'
-        500:
-          description: 'Internal server error'
   /auth/login:
     post:
       tags:
         - 'auth'
       summary: 'User login'
-      description: 'Authenticates a user and returns access, ID, and refresh tokens.'
+      description: 'Authenticates a user and provides access and refresh tokens.'
       operationId: 'loginUser'
       consumes:
         - 'application/json'
@@ -170,13 +107,30 @@ paths:
           description: 'Unauthorized'
         500:
           description: 'Internal server error'
-  /auth/forgot-password:
+  /inventory/items:
+    get:
+      tags:
+        - 'inventory'
+      summary: 'Get all inventory items'
+      description: 'Retrieves a list of all inventory items.'
+      operationId: 'getInventoryItems'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: 'List of inventory items'
+          schema:
+            type: 'array'
+            items:
+              $ref: '#/definitions/InventoryItem'
+        500:
+          description: 'Internal server error'
     post:
       tags:
-        - 'auth'
-      summary: 'Forgot password'
-      description: "Initiates the password reset process by sending a reset code to the user's email."
-      operationId: 'forgotPassword'
+        - 'inventory'
+      summary: 'Add a new inventory item'
+      description: 'Creates a new inventory item.'
+      operationId: 'addInventoryItem'
       consumes:
         - 'application/json'
       produces:
@@ -184,29 +138,24 @@ paths:
       parameters:
         - in: 'body'
           name: 'body'
-          description: 'Username to initiate password reset'
+          description: 'Details of the new inventory item'
           required: true
           schema:
-            type: 'object'
-            properties:
-              username:
-                type: 'string'
-            example:
-              username: 'john_doe'
+            $ref: '#/definitions/InventoryItem'
       responses:
-        200:
-          description: 'Password reset code sent successfully'
+        201:
+          description: 'Item created successfully'
         400:
           description: 'Invalid input'
         500:
           description: 'Internal server error'
-  /auth/confirm-forgot-password:
+  /sales/transactions:
     post:
       tags:
-        - 'auth'
-      summary: 'Confirm password reset'
-      description: 'Confirms the password reset using the reset code.'
-      operationId: 'confirmForgotPassword'
+        - 'sales'
+      summary: 'Record a sale'
+      description: 'Records a new sales transaction.'
+      operationId: 'recordSale'
       consumes:
         - 'application/json'
       produces:
@@ -214,102 +163,91 @@ paths:
       parameters:
         - in: 'body'
           name: 'body'
-          description: 'Password reset confirmation details'
+          description: 'Details of the sales transaction'
           required: true
           schema:
             type: 'object'
             properties:
-              username:
+              itemId:
                 type: 'string'
-              password:
-                type: 'string'
-              confirmationCode:
-                type: 'string'
-            example:
-              username: 'john_doe'
-              password: 'NewPassword123!'
-              confirmationCode: '654321'
-      responses:
-        200:
-          description: 'Password reset successful'
-        400:
-          description: 'Invalid confirmation code'
-        500:
-          description: 'Internal server error'
-  /auth/update-profile:
-    put:
-      tags:
-        - 'auth'
-      summary: 'Update user profile'
-      description: 'Updates the attributes of an authenticated user.'
-      operationId: 'updateProfile'
-      consumes:
-        - 'application/json'
-      produces:
-        - 'application/json'
-      parameters:
-        - in: 'body'
-          name: 'body'
-          description: 'User profile attributes to update'
-          required: true
-          schema:
-            type: 'object'
-            properties:
-              accessToken:
-                type: 'string'
-              attributes:
-                type: 'array'
-                items:
-                  type: 'object'
-                  properties:
-                    name:
-                      type: 'string'
-                    value:
-                      type: 'string'
-            example:
-              accessToken: 'eyJraWQiOiJ...'
-              attributes:
-                - name: 'given_name'
-                  value: 'John'
-                - name: 'family_name'
-                  value: 'Doe'
-      responses:
-        200:
-          description: 'Profile updated successfully'
-        400:
-          description: 'Invalid request data'
-        500:
-          description: 'Internal server error'
-  /auth/logout:
-    post:
-      tags:
-        - 'auth'
-      summary: 'Logout user'
-      description: 'Logs out an authenticated user by invalidating their session.'
-      operationId: 'logoutUser'
-      consumes:
-        - 'application/json'
-      produces:
-        - 'application/json'
-      parameters:
-        - in: 'body'
-          name: 'body'
-          description: 'Access token to invalidate'
-          required: true
-          schema:
-            type: 'object'
-            properties:
-              accessToken:
+              quantity:
+                type: 'integer'
+              totalPrice:
+                type: 'number'
+              paymentMethod:
                 type: 'string'
             example:
-              accessToken: 'eyJraWQiOiJ...'
+              itemId: 'item123'
+              quantity: 2
+              totalPrice: 50.00
+              paymentMethod: 'credit_card'
       responses:
-        200:
-          description: 'User logged out successfully'
+        201:
+          description: 'Transaction recorded successfully'
         400:
           description: 'Invalid input'
         500:
           description: 'Internal server error'
+  /user/profile:
+    get:
+      tags:
+        - 'user'
+      summary: 'Get user profile'
+      description: 'Retrieves the profile details of the authenticated user.'
+      operationId: 'getUserProfile'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'Authorization'
+          in: 'header'
+          description: 'Bearer token'
+          required: true
+          type: 'string'
+      responses:
+        200:
+          description: 'User profile retrieved successfully'
+          schema:
+            $ref: '#/definitions/UserProfile'
+        401:
+          description: 'Unauthorized'
+        500:
+          description: 'Internal server error'
+definitions:
+  InventoryItem:
+    type: 'object'
+    properties:
+      id:
+        type: 'string'
+      name:
+        type: 'string'
+      description:
+        type: 'string'
+      quantity:
+        type: 'integer'
+      price:
+        type: 'number'
+    example:
+      id: 'item123'
+      name: 'Laptop'
+      description: 'High-performance laptop'
+      quantity: 10
+      price: 1000.00
+  UserProfile:
+    type: 'object'
+    properties:
+      id:
+        type: 'string'
+      username:
+        type: 'string'
+      email:
+        type: 'string'
+      phone_number:
+        type: 'string'
+    example:
+      id: 'user123'
+      username: 'john_doe'
+      email: 'john@example.com'
+      phone_number: '+1234567890'
 externalDocs:
   description: 'Find out more about Swagger'
   url: 'http://swagger.io'
