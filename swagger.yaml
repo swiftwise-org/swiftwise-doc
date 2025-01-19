@@ -10,7 +10,7 @@ info:
   license:
     name: 'Apache 2.0'
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-host: 'https://z0a6v7mgd2.execute-api.us-west-2.amazonaws.com'
+host: 'z0a6v7mgd2.execute-api.us-west-2.amazonaws.com'
 basePath: '/dev'
 tags:
 - name: 'auth'
