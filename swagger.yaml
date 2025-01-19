@@ -1,7 +1,7 @@
 ---
 swagger: '2.0'
 info:
-  description: 'API documentation for the SwiftWise Inventory Management System. SwiftWise helps businesses manage their inventory, sales, and profiles efficiently.'
+  description: 'API documentation for the SwiftWise Inventory Management System.'
   version: '1.0.0'
   title: 'SwiftWise API'
   termsOfService: 'http://swiftwise.com/terms/'
