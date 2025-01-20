@@ -311,7 +311,7 @@ paths:
           description: 'Unauthorized'
         500:
           description: 'Internal server error'
-  /user/{userId}:
+  /user:
     get:
       tags:
       - 'user'
@@ -327,12 +327,6 @@ paths:
         required: true
         type: 'string'
         example: 'Bearer eyJraWQiOiJ...'
-      - name: 'userId'
-        in: 'path'
-        description: 'Unique identifier for the user.'
-        required: true
-        type: 'string'
-        example: 'user123'
       responses:
         200:
           description: 'User profile retrieved successfully'
@@ -348,81 +342,75 @@ paths:
           description: 'Internal server error'
 
     put:
-  tags:
-  - 'user'
-  summary: 'Update user profile'
-  description: 'Allows authenticated users to update their profile details.'
-  operationId: 'updateUserProfile'
-  consumes:
-  - 'application/json'
-  produces:
-  - 'application/json'
-  parameters:
-  - name: 'Authorization'
-    in: 'header'
-    description: 'Bearer token to authenticate the request.'
-    required: true
-    type: 'string'
-    example: 'Bearer eyJraWQiOiJ...'
-  - name: 'userId'
-    in: 'path'
-    description: 'Unique identifier for the user.'
-    required: true
-    type: 'string'
-    example: 'user123'
-  - in: 'body'
-    name: 'body'
-    description: 'Profile attributes to update as key-value pairs'
-    required: true
-    schema:
-      type: 'object'
-      properties:
-        preferred_username:
-          type: 'string'
-        email:
-          type: 'string'
-        email_verified:
-          type: 'boolean'
-        phone_number:
-          type: 'string'
-        phone_number_verified:
-          type: 'boolean'
-        last_name:
-          type: 'string'
-        first_name:
-          type: 'string'
-        middle_name:
-          type: 'string'
-        name:
-          type: 'string'
-        nickname:
-          type: 'string'
-        gender:
-          type: 'string'
-        birthdate:
-          type: 'string'
-        address:
-          type: 'string'
-        locale:
-          type: 'string'
-        picture:
-          type: 'string'
-      example:
-        preferred_username: 'johndoe'
-        email: 'jane.doe@example.com'
-        email_verified: true
-        phone_number: '+1234567890'
-        phone_number_verified: false
-        last_name: 'Doe'
-        first_name: 'Jane'
-        middle_name: 'A.'
-        name: 'Jane Doe'
-        nickname: 'Janey'
-        gender: 'female'
-        birthdate: '1990-01-01'
-        address: '123 Main St, Springfield'
-        locale: 'en-US'
-        picture: 'https://example.com/picture.jpg'
+      tags:
+      - 'user'
+      summary: 'Update user profile'
+      description: 'Allows authenticated users to update their profile details.'
+      operationId: 'updateUserProfile'
+      consumes:
+      - 'application/json'
+      produces:
+      - 'application/json'
+      parameters:
+      - name: 'Authorization'
+        in: 'header'
+        description: 'Bearer token to authenticate the request.'
+        required: true
+        type: 'string'
+        example: 'Bearer eyJraWQiOiJ...'
+      - in: 'body'
+        name: 'body'
+        description: 'Profile attributes to update as key-value pairs'
+        required: true
+        schema:
+          type: 'object'
+          properties:
+            preferred_username:
+              type: 'string'
+            email:
+              type: 'string'
+            email_verified:
+              type: 'boolean'
+            phone_number:
+              type: 'string'
+            phone_number_verified:
+              type: 'boolean'
+            last_name:
+              type: 'string'
+            first_name:
+              type: 'string'
+            middle_name:
+              type: 'string'
+            name:
+              type: 'string'
+            nickname:
+              type: 'string'
+            gender:
+              type: 'string'
+            birthdate:
+              type: 'string'
+            address:
+              type: 'string'
+            locale:
+              type: 'string'
+            picture:
+              type: 'string'
+          example:
+            preferred_username: 'johndoe'
+            email: 'jane.doe@example.com'
+            email_verified: true
+            phone_number: '+1234567890'
+            phone_number_verified: false
+            last_name: 'Doe'
+            first_name: 'Jane'
+            middle_name: 'A.'
+            name: 'Jane Doe'
+            nickname: 'Janey'
+            gender: 'female'
+            birthdate: '1990-01-01'
+            address: '123 Main St, Springfield'
+            locale: 'en-US'
+            picture: 'https://example.com/picture.jpg'
   responses:
     200:
       description: 'Profile updated successfully'
