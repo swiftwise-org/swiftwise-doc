@@ -375,11 +375,9 @@ paths:
               type: 'string'
             phone_number_verified:
               type: 'boolean'
-            last_name:
+            family_name:
               type: 'string'
-            first_name:
-              type: 'string'
-            middle_name:
+            given_name:
               type: 'string'
             name:
               type: 'string'
@@ -401,12 +399,11 @@ paths:
             email_verified: true
             phone_number: '+1234567890'
             phone_number_verified: false
-            last_name: 'Doe'
-            first_name: 'Jane'
-            middle_name: 'A.'
+            family_name: 'Doe'
+            given_name: 'Jane'
             name: 'Jane Doe'
             nickname: 'Janey'
-            gender: 'female'
+            gender: 'Female'
             birthdate: '1990-01-01'
             address: '123 Main St, Springfield'
             locale: 'en-US'
@@ -448,11 +445,9 @@ definitions:
         type: 'string'
       phone_number_verified:
         type: 'boolean'
-      last_name:
+      family_name:
         type: 'string'
-      first_name:
-        type: 'string'
-      middle_name:
+      given_name:
         type: 'string'
       name:
         type: 'string'
@@ -475,12 +470,11 @@ definitions:
       email_verified: true
       phone_number: '+1234567890'
       phone_number_verified: false
-      last_name: 'Doe'
-      first_name: 'Jane'
-      middle_name: 'A.'
+      family_name: 'Doe'
+      given_name: 'Jane'
       name: 'Jane Doe'
       nickname: 'Janey'
-      gender: 'female'
+      gender: 'Female'
       birthdate: '1990-01-01'
       address: '123 Main St, Springfield'
       locale: 'en-US'
