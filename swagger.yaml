@@ -408,26 +408,26 @@ paths:
             address: '123 Main St, Springfield'
             locale: 'en-US'
             picture: 'https://example.com/picture.jpg'
-  responses:
-    200:
-      description: 'Profile updated successfully'
-      schema:
-        type: 'object'
-        properties:
-          success:
-            type: 'boolean'
-            example: true
-          message:
-            type: 'string'
-            example: 'Profile updated successfully'
-    400:
-      description: 'Invalid request data'
-    401:
-      description: 'Unauthorized'
-    404:
-      description: 'User not found'
-    500:
-      description: 'Internal server error'
+      responses:
+        200:
+          description: 'Profile updated successfully'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: true
+              message:
+                type: 'string'
+                example: 'Profile updated successfully'
+        400:
+          description: 'Invalid request data'
+        401:
+          description: 'Unauthorized'
+        404:
+          description: 'User not found'
+        500:
+          description: 'Internal server error'
 
   /product:
     post:
@@ -440,46 +440,26 @@ paths:
       - 'application/json'
       produces:
       - 'application/json'
-      parameters:
-      - in: 'body'
-        name: 'body'
-        description: 'Product details to create a new product'
+      requestBody:
         required: true
-        schema:
-          type: 'object'
-          properties:
-            name:
-              type: 'string'
-            description:
-              type: 'string'
-            price:
-              type: 'number'
-              format: 'float'
-            quantity:
-              type: 'integer'
-            category_id:
-              type: 'string'
-            unit_id:
-              type: 'string'
-          example:
-            name: 'Product A'
-            description: 'A detailed description of Product A'
-            price: 20.99
-            quantity: 100
-            category_id: 'category123'
-            unit_id: 'unit123'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
       responses:
         201:
           description: 'Product created successfully'
-          schema:
-            type: 'object'
-            properties:
-              success:
-                type: 'boolean'
-                example: true
-              message:
-                type: 'string'
-                example: 'Product created successfully'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: true
+                  message:
+                    type: 'string'
+                    example: 'Product created successfully'
         400:
           description: 'Invalid input'
         500:
@@ -488,7 +468,7 @@ paths:
     get:
       tags:
       - 'product'
-      summary: 'Get a list of all products'
+      summary: 'Get a list of products'
       description: 'Retrieves a list of all products in the inventory.'
       operationId: 'getProducts'
       produces:
@@ -496,34 +476,38 @@ paths:
       responses:
         200:
           description: 'List of products retrieved successfully'
-          schema:
-            type: 'array'
-            items:
-              type: 'object'
-              properties:
-                id:
-                  type: 'string'
-                name:
-                  type: 'string'
-                description:
-                  type: 'string'
-                price:
-                  type: 'number'
-                  format: 'float'
-                quantity:
-                  type: 'integer'
-                category_id:
-                  type: 'string'
-                unit_id:
-                  type: 'string'
-              example:
-                id: 'product123'
-                name: 'Product A'
-                description: 'A detailed description of Product A'
-                price: 20.99
-                quantity: 100
-                category_id: 'category123'
-                unit_id: 'unit123'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Product'
+        500:
+          description: 'Internal server error'
+
+  /product/{id}:
+    get:
+      tags:
+      - 'product'
+      summary: 'Get a product by ID'
+      description: 'Retrieves a single product’s details by its ID.'
+      operationId: 'getProductById'
+      parameters:
+      - in: 'path'
+        name: 'id'
+        description: 'ID of the product to retrieve'
+        required: true
+        schema:
+          type: 'string'
+      responses:
+        200:
+          description: 'Product details retrieved successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        404:
+          description: 'Product not found'
         500:
           description: 'Internal server error'
 
@@ -542,46 +526,28 @@ paths:
         name: 'id'
         description: 'ID of the product to update'
         required: true
-        type: 'string'
-      - in: 'body'
-        name: 'body'
-        description: 'Updated product details'
-        required: true
         schema:
-          type: 'object'
-          properties:
-            name:
-              type: 'string'
-            description:
-              type: 'string'
-            price:
-              type: 'number'
-              format: 'float'
-            quantity:
-              type: 'integer'
-            category_id:
-              type: 'string'
-            unit_id:
-              type: 'string'
-          example:
-            name: 'Updated Product A'
-            description: 'Updated description of Product A'
-            price: 25.99
-            quantity: 120
-            category_id: 'category123'
-            unit_id: 'unit123'
+          type: 'string'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
       responses:
         200:
           description: 'Product updated successfully'
-          schema:
-            type: 'object'
-            properties:
-              success:
-                type: 'boolean'
-                example: true
-              message:
-                type: 'string'
-                example: 'Product updated successfully'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: true
+                  message:
+                    type: 'string'
+                    example: 'Product updated successfully'
         400:
           description: 'Invalid input'
         404:
@@ -593,31 +559,99 @@ paths:
       tags:
       - 'product'
       summary: 'Delete a product'
-      description: 'Deletes a product from the inventory.'
+      description: 'Deletes a product from the inventory system.'
       operationId: 'deleteProduct'
       parameters:
       - in: 'path'
         name: 'id'
         description: 'ID of the product to delete'
         required: true
-        type: 'string'
+        schema:
+          type: 'string'
       responses:
         200:
           description: 'Product deleted successfully'
-          schema:
-            type: 'object'
-            properties:
-              success:
-                type: 'boolean'
-                example: true
-              message:
-                type: 'string'
-                example: 'Product deleted successfully'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: true
+                  message:
+                    type: 'string'
+                    example: 'Product deleted successfully'
         404:
           description: 'Product not found'
         500:
           description: 'Internal server error'
 
+components:
+  schemas:
+    Product:
+      type: 'object'
+      properties:
+        product_main_price:
+          type: 'number'
+          format: 'float'
+        category_id:
+          type: 'string'
+        product_quantity:
+          type: 'integer'
+        product_status:
+          type: 'string'
+          enum: [ 'active', 'inactive' ]
+        product_name:
+          type: 'string'
+        track_inventory:
+          type: 'boolean'
+        product_slug:
+          type: 'string'
+        other:
+          type: 'object'
+          properties:
+            color:
+              type: 'string'
+            water_resistant:
+              type: 'string'
+            brand:
+              type: 'string'
+        cover_url:
+          type: 'string'
+          format: 'uri'
+        product_barcode:
+          type: 'string'
+        product_purchase_cost:
+          type: 'number'
+          format: 'float'
+        product_available:
+          type: 'integer'
+        unit_id:
+          type: 'string'
+        product_description:
+          type: 'string'
+        variant_id:
+          type: 'string'
+      example:
+        product_main_price: 199.99
+        category_id: 'cat_wearable'
+        product_quantity: 30
+        product_status: 'active'
+        product_name: 'Smartwatch Pro'
+        track_inventory: true
+        product_slug: 'smartwatch-pro'
+        other:
+          color: 'silver'
+          water_resistant: 'Yes'
+          brand: 'WearTech'
+        cover_url: 'https://example.com/images/smartwatch.jpg'
+        product_barcode: '9876543210987'
+        product_purchase_cost: 120
+        product_available: 28
+        unit_id: 'unit_002'
+        product_description: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
+        variant_id: 'var_002'
 definitions:
   UserProfile:
     type: 'object'
