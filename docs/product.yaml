@@ -1,0 +1,188 @@
+/product:
+  post:
+    tags:
+    - 'product'
+    summary: 'Create a new product'
+    description: 'Adds a new product to the inventory system.'
+    operationId: 'createProduct'
+    consumes:
+    - 'application/json'
+    produces:
+    - 'application/json'
+    parameters:
+    - in: 'body'
+      name: 'body'
+      description: 'Product details to create a new product'
+      required: true
+      schema:
+        type: 'object'
+        properties:
+          name:
+            type: 'string'
+          description:
+            type: 'string'
+          price:
+            type: 'number'
+            format: 'float'
+          quantity:
+            type: 'integer'
+          category_id:
+            type: 'string'
+          unit_id:
+            type: 'string'
+        example:
+          name: 'Product A'
+          description: 'A detailed description of Product A'
+          price: 20.99
+          quantity: 100
+          category_id: 'category123'
+          unit_id: 'unit123'
+    responses:
+      201:
+        description: 'Product created successfully'
+        schema:
+          type: 'object'
+          properties:
+            success:
+              type: 'boolean'
+              example: true
+            message:
+              type: 'string'
+              example: 'Product created successfully'
+      400:
+        description: 'Invalid input'
+      500:
+        description: 'Internal server error'
+
+  get:
+    tags:
+    - 'product'
+    summary: 'Get a list of all products'
+    description: 'Retrieves a list of all products in the inventory.'
+    operationId: 'getProducts'
+    produces:
+    - 'application/json'
+    responses:
+      200:
+        description: 'List of products retrieved successfully'
+        schema:
+          type: 'array'
+          items:
+            type: 'object'
+            properties:
+              id:
+                type: 'string'
+              name:
+                type: 'string'
+              description:
+                type: 'string'
+              price:
+                type: 'number'
+                format: 'float'
+              quantity:
+                type: 'integer'
+              category_id:
+                type: 'string'
+              unit_id:
+                type: 'string'
+            example:
+              id: 'product123'
+              name: 'Product A'
+              description: 'A detailed description of Product A'
+              price: 20.99
+              quantity: 100
+              category_id: 'category123'
+              unit_id: 'unit123'
+      500:
+        description: 'Internal server error'
+
+  put:
+    tags:
+    - 'product'
+    summary: 'Update an existing product'
+    description: 'Allows modification of an existing product’s details.'
+    operationId: 'updateProduct'
+    consumes:
+    - 'application/json'
+    produces:
+    - 'application/json'
+    parameters:
+    - in: 'path'
+      name: 'id'
+      description: 'ID of the product to update'
+      required: true
+      type: 'string'
+    - in: 'body'
+      name: 'body'
+      description: 'Updated product details'
+      required: true
+      schema:
+        type: 'object'
+        properties:
+          name:
+            type: 'string'
+          description:
+            type: 'string'
+          price:
+            type: 'number'
+            format: 'float'
+          quantity:
+            type: 'integer'
+          category_id:
+            type: 'string'
+          unit_id:
+            type: 'string'
+        example:
+          name: 'Updated Product A'
+          description: 'Updated description of Product A'
+          price: 25.99
+          quantity: 120
+          category_id: 'category123'
+          unit_id: 'unit123'
+    responses:
+      200:
+        description: 'Product updated successfully'
+        schema:
+          type: 'object'
+          properties:
+            success:
+              type: 'boolean'
+              example: true
+            message:
+              type: 'string'
+              example: 'Product updated successfully'
+      400:
+        description: 'Invalid input'
+      404:
+        description: 'Product not found'
+      500:
+        description: 'Internal server error'
+
+  delete:
+    tags:
+    - 'product'
+    summary: 'Delete a product'
+    description: 'Deletes a product from the inventory.'
+    operationId: 'deleteProduct'
+    parameters:
+    - in: 'path'
+      name: 'id'
+      description: 'ID of the product to delete'
+      required: true
+      type: 'string'
+    responses:
+      200:
+        description: 'Product deleted successfully'
+        schema:
+          type: 'object'
+          properties:
+            success:
+              type: 'boolean'
+              example: true
+            message:
+              type: 'string'
+              example: 'Product deleted successfully'
+      404:
+        description: 'Product not found'
+      500:
+        description: 'Internal server error'

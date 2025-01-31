@@ -429,6 +429,8 @@ paths:
     500:
       description: 'Internal server error'
 
+  $ref: './docs/product.yaml'
+
 definitions:
   UserProfile:
     type: 'object'
