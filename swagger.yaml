@@ -17,9 +17,14 @@ tags:
   description: 'Endpoints for user authentication and authorization'
 - name: 'user'
   description: 'Endpoints for managing user profiles'
+- name: 'product'
+  description: 'Endpoints for managing products in the inventory system'
+- name: 'category'
+  description: 'Endpoints for managing product categories'
+- name: 'unit'
+  description: 'Endpoints for managing units of measurement for products'
 schemes:
 - 'https'
-- 'http'
 paths:
   /auth/register:
     post:
