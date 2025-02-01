@@ -458,7 +458,214 @@ paths:
               message:
                 type: 'string'
                 example: 'Internal server error occurred'
+  /user:
+    get:
+      tags:
+      - 'user'
+      summary: 'Get user profile'
+      description: 'Retrieves the profile details of the authenticated user.'
+      operationId: 'getUserProfile'
+      produces:
+      - 'application/json'
+      parameters:
+      - name: 'Authorization'
+        in: 'header'
+        description: 'Bearer token to authenticate the request.'
+        required: true
+        schema:
+          type: 'string'
+          example: 'Bearer eyJraWQiOiJ...'
+      responses:
+        200:
+          description: 'User profile retrieved successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/UserProfile'
+        400:
+          description: 'Invalid or missing userId'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: false
+                  message:
+                    type: 'string'
+                    example: 'Invalid or missing userId'
+        401:
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: false
+                  message:
+                    type: 'string'
+                    example: 'Unauthorized access'
+        404:
+          description: 'User not found'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: false
+                  message:
+                    type: 'string'
+                    example: 'User not found'
+        500:
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: false
+                  message:
+                    type: 'string'
+                    example: 'Internal server error occurred'
 
+    put:
+      tags:
+      - 'user'
+      summary: 'Update user profile'
+      description: 'Allows authenticated users to update their profile details.'
+      operationId: 'updateUserProfile'
+      consumes:
+      - 'application/json'
+      produces:
+      - 'application/json'
+      parameters:
+      - name: 'Authorization'
+        in: 'header'
+        description: 'Bearer token to authenticate the request.'
+        required: true
+        schema:
+          type: 'string'
+          example: 'Bearer eyJraWQiOiJ...'
+      - in: 'body'
+        name: 'body'
+        description: 'Profile attributes to update as key-value pairs'
+        required: true
+        schema:
+          type: 'object'
+          properties:
+            preferred_username:
+              type: 'string'
+            email:
+              type: 'string'
+            email_verified:
+              type: 'boolean'
+            phone_number:
+              type: 'string'
+            phone_number_verified:
+              type: 'boolean'
+            family_name:
+              type: 'string'
+            given_name:
+              type: 'string'
+            nickname:
+              type: 'string'
+            gender:
+              type: 'string'
+            birthdate:
+              type: 'string'
+            address:
+              type: 'string'
+            locale:
+              type: 'string'
+            picture:
+              type: 'string'
+          example:
+            preferred_username: 'johndoe'
+            email: 'jane.doe@example.com'
+            email_verified: true
+            phone_number: '+1234567890'
+            phone_number_verified: false
+            family_name: 'Doe'
+            given_name: 'Jane'
+            nickname: 'Janey'
+            gender: 'Female'
+            birthdate: '1990-01-01'
+            address: '123 Main St, Springfield'
+            locale: 'en-US'
+            picture: 'https://example.com/picture.jpg'
+      responses:
+        200:
+          description: 'Profile updated successfully'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: true
+                  message:
+                    type: 'string'
+                    example: 'Profile updated successfully'
+        400:
+          description: 'Invalid request data'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: false
+                  message:
+                    type: 'string'
+                    example: 'Invalid request data provided'
+        401:
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: false
+                  message:
+                    type: 'string'
+                    example: 'Unauthorized access'
+        404:
+          description: 'User not found'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: false
+                  message:
+                    type: 'string'
+                    example: 'User not found'
+        500:
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  success:
+                    type: 'boolean'
+                    example: false
+                  message:
+                    type: 'string'
+                    example: 'Internal server error occurred'
   /product:
     post:
       tags:
