@@ -44,20 +44,23 @@ paths:
         required: true
         schema:
           type: 'object'
+          required:
+          - username
+          - password
+          - email
           properties:
             username:
               type: 'string'
+              example: 'john_doe'
             password:
               type: 'string'
+              example: 'Password123!'
             email:
               type: 'string'
+              example: 'john@example.com'
             phone_number:
               type: 'string'
-          example:
-            username: 'john_doe'
-            password: 'Password123!'
-            email: 'john@example.com'
-            phone_number: '+1234567890'
+              example: '+1234567890'
       responses:
         201:
           description: 'User registered successfully'
@@ -72,8 +75,27 @@ paths:
                 example: 'User registered successfully'
         400:
           description: 'Invalid input'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid input provided'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
+
   /auth/confirm-email:
     post:
       tags:
@@ -92,14 +114,16 @@ paths:
         required: true
         schema:
           type: 'object'
+          required:
+          - email
+          - confirmationCode
           properties:
             email:
               type: 'string'
+              example: 'john@example.com'
             confirmationCode:
               type: 'string'
-          example:
-            email: 'john@example.com'
-            confirmationCode: '123456'
+              example: '123456'
       responses:
         200:
           description: 'Email confirmed successfully'
@@ -114,8 +138,26 @@ paths:
                 example: 'Email successfully verified'
         400:
           description: 'Invalid confirmation code'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid confirmation code'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
   /auth/resend-code:
     post:
       tags:
@@ -134,11 +176,12 @@ paths:
         required: true
         schema:
           type: 'object'
+          required:
+          - email
           properties:
             email:
               type: 'string'
-          example:
-            email: 'john@example.com'
+              example: 'john@example.com'
       responses:
         200:
           description: 'Confirmation code sent successfully'
@@ -153,8 +196,27 @@ paths:
                 example: 'Confirmation code sent successfully'
         400:
           description: 'Invalid email'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid email provided'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
+
   /auth/forgot-password:
     post:
       tags:
@@ -173,11 +235,12 @@ paths:
         required: true
         schema:
           type: 'object'
+          required:
+          - email
           properties:
             email:
               type: 'string'
-          example:
-            email: 'john@example.com'
+              example: 'john@example.com'
       responses:
         200:
           description: 'Password reset code sent successfully'
@@ -192,8 +255,27 @@ paths:
                 example: 'Password reset code sent successfully'
         400:
           description: 'Invalid email'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid email provided'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
+
   /auth/confirm-forgot-password:
     post:
       tags:
@@ -212,17 +294,20 @@ paths:
         required: true
         schema:
           type: 'object'
+          required:
+          - email
+          - password
+          - confirmationCode
           properties:
             email:
               type: 'string'
+              example: 'john@example.com'
             password:
               type: 'string'
+              example: 'NewPassword123!'
             confirmationCode:
               type: 'string'
-          example:
-            email: 'john@example.com'
-            password: 'NewPassword123!'
-            confirmationCode: '654321'
+              example: '654321'
       responses:
         200:
           description: 'Password reset successful'
@@ -237,8 +322,27 @@ paths:
                 example: 'Password reset successful'
         400:
           description: 'Invalid confirmation code or email'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid confirmation code or email'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
+
   /auth/login:
     post:
       tags:
@@ -257,14 +361,16 @@ paths:
         required: true
         schema:
           type: 'object'
+          required:
+          - email
+          - password
           properties:
             email:
               type: 'string'
+              example: 'john@example.com'
             password:
               type: 'string'
-          example:
-            email: 'john@example.com'
-            password: 'Password123!'
+              example: 'Password123!'
       responses:
         200:
           description: 'Login successful'
@@ -273,15 +379,33 @@ paths:
             properties:
               token:
                 type: 'string'
+                example: 'eyJraWQiOiJ...'
               refreshToken:
                 type: 'string'
-            example:
-              token: 'eyJraWQiOiJ...'
-              refreshToken: 'eyJraWQiOiJ...'
+                example: 'eyJraWQiOiJ...'
         401:
           description: 'Unauthorized'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Unauthorized access'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
+
   /auth/logout:
     post:
       tags:
@@ -314,125 +438,26 @@ paths:
                 example: 'User logged out successfully'
         401:
           description: 'Unauthorized'
-        500:
-          description: 'Internal server error'
-  /user:
-    get:
-      tags:
-      - 'user'
-      summary: 'Get user profile'
-      description: 'Retrieves the profile details of the authenticated user.'
-      operationId: 'getUserProfile'
-      produces:
-      - 'application/json'
-      parameters:
-      - name: 'Authorization'
-        in: 'header'
-        description: 'Bearer token to authenticate the request.'
-        required: true
-        type: 'string'
-        example: 'Bearer eyJraWQiOiJ...'
-      responses:
-        200:
-          description: 'User profile retrieved successfully'
           schema:
-            $ref: '#/definitions/UserProfile'
-        400:
-          description: 'Invalid or missing userId'
-        401:
-          description: 'Unauthorized'
-        404:
-          description: 'User not found'
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Unauthorized access'
         500:
           description: 'Internal server error'
-
-    put:
-      tags:
-      - 'user'
-      summary: 'Update user profile'
-      description: 'Allows authenticated users to update their profile details.'
-      operationId: 'updateUserProfile'
-      consumes:
-      - 'application/json'
-      produces:
-      - 'application/json'
-      parameters:
-      - name: 'Authorization'
-        in: 'header'
-        description: 'Bearer token to authenticate the request.'
-        required: true
-        type: 'string'
-        example: 'Bearer eyJraWQiOiJ...'
-      - in: 'body'
-        name: 'body'
-        description: 'Profile attributes to update as key-value pairs'
-        required: true
-        schema:
-          type: 'object'
-          properties:
-            preferred_username:
-              type: 'string'
-            email:
-              type: 'string'
-            email_verified:
-              type: 'boolean'
-            phone_number:
-              type: 'string'
-            phone_number_verified:
-              type: 'boolean'
-            family_name:
-              type: 'string'
-            given_name:
-              type: 'string'
-            name:
-              type: 'string'
-            nickname:
-              type: 'string'
-            gender:
-              type: 'string'
-            birthdate:
-              type: 'string'
-            address:
-              type: 'string'
-            locale:
-              type: 'string'
-            picture:
-              type: 'string'
-          example:
-            preferred_username: 'johndoe'
-            email: 'jane.doe@example.com'
-            email_verified: true
-            phone_number: '+1234567890'
-            phone_number_verified: false
-            family_name: 'Doe'
-            given_name: 'Jane'
-            name: 'Jane Doe'
-            nickname: 'Janey'
-            gender: 'Female'
-            birthdate: '1990-01-01'
-            address: '123 Main St, Springfield'
-            locale: 'en-US'
-            picture: 'https://example.com/picture.jpg'
-  responses:
-    200:
-      description: 'Profile updated successfully'
-      schema:
-        type: 'object'
-        properties:
-          success:
-            type: 'boolean'
-            example: true
-          message:
-            type: 'string'
-            example: 'Profile updated successfully'
-    400:
-      description: 'Invalid request data'
-    401:
-      description: 'Unauthorized'
-    404:
-      description: 'User not found'
-    500:
-      description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
   /product:
     post:
@@ -452,27 +477,78 @@ paths:
         required: true
         schema:
           type: 'object'
+          required:
+          - product_name
+          - product_description
+          - product_main_price
+          - product_quantity
+          - category_id
+          - unit_id
+          - product_status
+          - track_inventory
+          - product_slug
+          - product_barcode
+          - product_purchase_cost
+          - product_available
+          - variant_id
           properties:
-            name:
-              type: 'string'
-            description:
-              type: 'string'
-            price:
+            product_main_price:
               type: 'number'
               format: 'float'
-            quantity:
-              type: 'integer'
+              example: 199.99
             category_id:
               type: 'string'
+              example: 'cat_wearable'
+            product_quantity:
+              type: 'integer'
+              example: 30
+            product_status:
+              type: 'string'
+              enum: [ 'active', 'inactive' ]
+              example: 'active'
+            product_name:
+              type: 'string'
+              example: 'Smartwatch Pro'
+            track_inventory:
+              type: 'boolean'
+              example: true
+            product_slug:
+              type: 'string'
+              example: 'smartwatch-pro'
+            other:
+              type: 'object'
+              properties:
+                color:
+                  type: 'string'
+                  example: 'silver'
+                water_resistant:
+                  type: 'string'
+                  example: 'Yes'
+                brand:
+                  type: 'string'
+                  example: 'WearTech'
+            cover_url:
+              type: 'string'
+              example: 'https://example.com/images/smartwatch.jpg'
+            product_barcode:
+              type: 'string'
+              example: '9876543210987'
+            product_purchase_cost:
+              type: 'number'
+              format: 'float'
+              example: 120
+            product_available:
+              type: 'integer'
+              example: 28
             unit_id:
               type: 'string'
-          example:
-            name: 'Product A'
-            description: 'A detailed description of Product A'
-            price: 20.99
-            quantity: 100
-            category_id: 'category123'
-            unit_id: 'unit123'
+              example: 'unit_002'
+            product_description:
+              type: 'string'
+              example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
+            variant_id:
+              type: 'string'
+              example: 'var_002'
       responses:
         201:
           description: 'Product created successfully'
@@ -487,9 +563,26 @@ paths:
                 example: 'Product created successfully'
         400:
           description: 'Invalid input'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid input provided'
         500:
           description: 'Internal server error'
-
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
     get:
       tags:
       - 'product'
@@ -508,30 +601,173 @@ paths:
               properties:
                 id:
                   type: 'string'
-                name:
-                  type: 'string'
-                description:
-                  type: 'string'
-                price:
+                  example: 'product123'
+                product_main_price:
                   type: 'number'
                   format: 'float'
-                quantity:
-                  type: 'integer'
+                  example: 199.99
                 category_id:
                   type: 'string'
+                  example: 'cat_wearable'
+                product_quantity:
+                  type: 'integer'
+                  example: 30
+                product_status:
+                  type: 'string'
+                  enum: [ 'active', 'inactive' ]
+                  example: 'active'
+                product_name:
+                  type: 'string'
+                  example: 'Smartwatch Pro'
+                track_inventory:
+                  type: 'boolean'
+                  example: true
+                product_slug:
+                  type: 'string'
+                  example: 'smartwatch-pro'
+                other:
+                  type: 'object'
+                  properties:
+                    color:
+                      type: 'string'
+                      example: 'silver'
+                    water_resistant:
+                      type: 'string'
+                      example: 'Yes'
+                    brand:
+                      type: 'string'
+                      example: 'WearTech'
+                cover_url:
+                  type: 'string'
+                  example: 'https://example.com/images/smartwatch.jpg'
+                product_barcode:
+                  type: 'string'
+                  example: '9876543210987'
+                product_purchase_cost:
+                  type: 'number'
+                  format: 'float'
+                  example: 120
+                product_available:
+                  type: 'integer'
+                  example: 28
                 unit_id:
                   type: 'string'
-              example:
-                id: 'product123'
-                name: 'Product A'
-                description: 'A detailed description of Product A'
-                price: 20.99
-                quantity: 100
-                category_id: 'category123'
-                unit_id: 'unit123'
+                  example: 'unit_002'
+                product_description:
+                  type: 'string'
+                  example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
+                variant_id:
+                  type: 'string'
+                  example: 'var_002'
         500:
           description: 'Internal server error'
-
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
+  /product/{id}:
+    get:
+      tags:
+      - 'product'
+      summary: 'Get a product by ID'
+      description: 'Retrieves the details of a single product by its ID.'
+      operationId: 'getProductById'
+      parameters:
+      - in: 'path'
+        name: 'id'
+        description: 'ID of the product to retrieve'
+        required: true
+        type: 'string'
+      responses:
+        200:
+          description: 'Product details retrieved successfully'
+          schema:
+            type: 'object'
+            properties:
+              product_main_price:
+                type: 'number'
+                format: 'float'
+                example: 199.99
+              category_id:
+                type: 'string'
+                example: 'cat_wearable'
+              product_quantity:
+                type: 'integer'
+                example: 30
+              product_status:
+                type: 'string'
+                enum: [ 'active', 'inactive' ]
+                example: 'active'
+              product_name:
+                type: 'string'
+                example: 'Smartwatch Pro'
+              track_inventory:
+                type: 'boolean'
+                example: true
+              product_slug:
+                type: 'string'
+                example: 'smartwatch-pro'
+              other:
+                type: 'object'
+                properties:
+                  color:
+                    type: 'string'
+                    example: 'silver'
+                  water_resistant:
+                    type: 'string'
+                    example: 'Yes'
+                  brand:
+                    type: 'string'
+                    example: 'WearTech'
+              cover_url:
+                type: 'string'
+                example: 'https://example.com/images/smartwatch.jpg'
+              product_barcode:
+                type: 'string'
+                example: '9876543210987'
+              product_purchase_cost:
+                type: 'number'
+                format: 'float'
+                example: 120
+              product_available:
+                type: 'integer'
+                example: 28
+              unit_id:
+                type: 'string'
+                example: 'unit_002'
+              product_description:
+                type: 'string'
+                example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
+              variant_id:
+                type: 'string'
+                example: 'var_002'
+        404:
+          description: 'Product not found'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Product not found'
+        500:
+          description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
     put:
       tags:
       - 'product'
@@ -554,27 +790,78 @@ paths:
         required: true
         schema:
           type: 'object'
+          required:
+          - product_name
+          - product_description
+          - product_main_price
+          - product_quantity
+          - category_id
+          - unit_id
+          - product_status
+          - track_inventory
+          - product_slug
+          - product_barcode
+          - product_purchase_cost
+          - product_available
+          - variant_id
           properties:
-            name:
-              type: 'string'
-            description:
-              type: 'string'
-            price:
+            product_main_price:
               type: 'number'
               format: 'float'
-            quantity:
-              type: 'integer'
+              example: 199.99
             category_id:
               type: 'string'
+              example: 'cat_wearable'
+            product_quantity:
+              type: 'integer'
+              example: 30
+            product_status:
+              type: 'string'
+              enum: [ 'active', 'inactive' ]
+              example: 'active'
+            product_name:
+              type: 'string'
+              example: 'Smartwatch Pro'
+            track_inventory:
+              type: 'boolean'
+              example: true
+            product_slug:
+              type: 'string'
+              example: 'smartwatch-pro'
+            other:
+              type: 'object'
+              properties:
+                color:
+                  type: 'string'
+                  example: 'silver'
+                water_resistant:
+                  type: 'string'
+                  example: 'Yes'
+                brand:
+                  type: 'string'
+                  example: 'WearTech'
+            cover_url:
+              type: 'string'
+              example: 'https://example.com/images/smartwatch.jpg'
+            product_barcode:
+              type: 'string'
+              example: '9876543210987'
+            product_purchase_cost:
+              type: 'number'
+              format: 'float'
+              example: 120
+            product_available:
+              type: 'integer'
+              example: 28
             unit_id:
               type: 'string'
-          example:
-            name: 'Updated Product A'
-            description: 'Updated description of Product A'
-            price: 25.99
-            quantity: 120
-            category_id: 'category123'
-            unit_id: 'unit123'
+              example: 'unit_002'
+            product_description:
+              type: 'string'
+              example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
+            variant_id:
+              type: 'string'
+              example: 'var_002'
       responses:
         200:
           description: 'Product updated successfully'
@@ -589,10 +876,37 @@ paths:
                 example: 'Product updated successfully'
         400:
           description: 'Invalid input'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid input provided'
         404:
           description: 'Product not found'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Product not found'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
     delete:
       tags:
@@ -620,8 +934,26 @@ paths:
                 example: 'Product deleted successfully'
         404:
           description: 'Product not found'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Product not found'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
   /category:
     post:
@@ -634,49 +966,70 @@ paths:
       - 'application/json'
       produces:
       - 'application/json'
-      requestBody:
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: 'Category details to create a new category'
         required: true
-        content:
-          application/json:
-            schema:
-              type: 'object'
-              properties:
-                category_id:
-                  type: 'string'
-                category_name:
-                  type: 'string'
-                category_description:
-                  type: 'string'
-                parent_category_id:
-                  type: 'string'
-                  nullable: true
-                category_status:
-                  type: 'string'
-                  enum: [ 'active', 'inactive' ]
-              example:
-                category_id: 'cat_wearable'
-                category_name: 'Wearables'
-                category_description: 'Products related to wearable technology.'
-                parent_category_id: null
-                category_status: 'active'
+        schema:
+          type: 'object'
+          required:
+          - category_id
+          - category_name
+          - category_description
+          - category_status
+          properties:
+            category_id:
+              type: 'string'
+              example: 'cat_wearable'
+            category_name:
+              type: 'string'
+              example: 'Wearables'
+            category_description:
+              type: 'string'
+              example: 'Products related to wearable technology.'
+            parent_category_id:
+              type: 'string'
+              nullable: true
+              example: null
+            category_status:
+              type: 'string'
+              enum: [ 'active', 'inactive' ]
+              example: 'active'
       responses:
         201:
           description: 'Category created successfully'
-          content:
-            application/json:
-              schema:
-                type: 'object'
-                properties:
-                  success:
-                    type: 'boolean'
-                    example: true
-                  message:
-                    type: 'string'
-                    example: 'Category created successfully'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: true
+              message:
+                type: 'string'
+                example: 'Category created successfully'
         400:
           description: 'Invalid input'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid input provided'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
     get:
       tags:
@@ -689,38 +1042,39 @@ paths:
       responses:
         200:
           description: 'List of categories retrieved successfully'
-          content:
-            application/json:
-              schema:
-                type: 'array'
-                items:
-                  type: 'object'
-                  properties:
-                    category_id:
-                      type: 'string'
-                    category_name:
-                      type: 'string'
-                    category_description:
-                      type: 'string'
-                    parent_category_id:
-                      type: 'string'
-                      nullable: true
-                    category_status:
-                      type: 'string'
-                      enum: [ 'active', 'inactive' ]
-                example:
-                - category_id: 'cat_wearable'
-                  category_name: 'Wearables'
-                  category_description: 'Products related to wearable technology.'
-                  parent_category_id: null
-                  category_status: 'active'
-                - category_id: 'cat_fashion'
-                  category_name: 'Fashion'
-                  category_description: 'Clothing and accessories.'
-                  parent_category_id: null
-                  category_status: 'inactive'
+          schema:
+            type: 'array'
+            items:
+              type: 'object'
+              properties:
+                category_id:
+                  type: 'string'
+                  example: 'cat_wearable'
+                category_name:
+                  type: 'string'
+                  example: 'Wearables'
+                category_description:
+                  type: 'string'
+                  example: 'Products related to wearable technology.'
+                parent_category_id:
+                  type: 'string'
+                  nullable: true
+                  example: null
+                category_status:
+                  type: 'string'
+                  enum: [ 'active', 'inactive' ]
+                  example: 'active'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
   /category/{id}:
     get:
@@ -734,38 +1088,52 @@ paths:
         name: 'id'
         description: 'ID of the category to retrieve'
         required: true
-        schema:
-          type: 'string'
+        type: 'string'
       responses:
         200:
           description: 'Category details retrieved successfully'
-          content:
-            application/json:
-              schema:
-                type: 'object'
-                properties:
-                  category_id:
-                    type: 'string'
-                  category_name:
-                    type: 'string'
-                  category_description:
-                    type: 'string'
-                  parent_category_id:
-                    type: 'string'
-                    nullable: true
-                  category_status:
-                    type: 'string'
-                    enum: [ 'active', 'inactive' ]
-                example:
-                  category_id: 'cat_wearable'
-                  category_name: 'Wearables'
-                  category_description: 'Products related to wearable technology.'
-                  parent_category_id: null
-                  category_status: 'active'
+          schema:
+            type: 'object'
+            properties:
+              category_id:
+                type: 'string'
+                example: 'cat_wearable'
+              category_name:
+                type: 'string'
+                example: 'Wearables'
+              category_description:
+                type: 'string'
+                example: 'Products related to wearable technology.'
+              parent_category_id:
+                type: 'string'
+                nullable: true
+                example: null
+              category_status:
+                type: 'string'
+                enum: [ 'active', 'inactive' ]
+                example: 'active'
         404:
           description: 'Category not found'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Category not found'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
     put:
       tags:
@@ -782,53 +1150,81 @@ paths:
         name: 'id'
         description: 'ID of the category to update'
         required: true
-        schema:
-          type: 'string'
-      requestBody:
+        type: 'string'
+      - in: 'body'
+        name: 'body'
+        description: 'Updated category details'
         required: true
-        content:
-          application/json:
-            schema:
-              type: 'object'
-              properties:
-                category_id:
-                  type: 'string'
-                category_name:
-                  type: 'string'
-                category_description:
-                  type: 'string'
-                parent_category_id:
-                  type: 'string'
-                  nullable: true
-                category_status:
-                  type: 'string'
-                  enum: [ 'active', 'inactive' ]
-              example:
-                category_id: 'cat_wearable'
-                category_name: 'Wearables'
-                category_description: 'Products related to wearable technology.'
-                parent_category_id: null
-                category_status: 'active'
+        schema:
+          type: 'object'
+          required:
+          - category_id
+          - category_name
+          - category_description
+          - category_status
+          properties:
+            category_id:
+              type: 'string'
+              example: 'cat_wearable'
+            category_name:
+              type: 'string'
+              example: 'Wearables'
+            category_description:
+              type: 'string'
+              example: 'Products related to wearable technology.'
+            parent_category_id:
+              type: 'string'
+              nullable: true
+              example: null
+            category_status:
+              type: 'string'
+              enum: [ 'active', 'inactive' ]
+              example: 'active'
       responses:
         200:
           description: 'Category updated successfully'
-          content:
-            application/json:
-              schema:
-                type: 'object'
-                properties:
-                  success:
-                    type: 'boolean'
-                    example: true
-                  message:
-                    type: 'string'
-                    example: 'Category updated successfully'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: true
+              message:
+                type: 'string'
+                example: 'Category updated successfully'
         400:
           description: 'Invalid input'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid input provided'
         404:
           description: 'Category not found'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Category not found'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
     delete:
       tags:
@@ -841,26 +1237,41 @@ paths:
         name: 'id'
         description: 'ID of the category to delete'
         required: true
-        schema:
-          type: 'string'
+        type: 'string'
       responses:
         200:
           description: 'Category deleted successfully'
-          content:
-            application/json:
-              schema:
-                type: 'object'
-                properties:
-                  success:
-                    type: 'boolean'
-                    example: true
-                  message:
-                    type: 'string'
-                    example: 'Category deleted successfully'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: true
+              message:
+                type: 'string'
+                example: 'Category deleted successfully'
         404:
           description: 'Category not found'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Category not found'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
   /unit:
     post:
@@ -873,45 +1284,66 @@ paths:
       - 'application/json'
       produces:
       - 'application/json'
-      requestBody:
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: 'Unit details to create a new unit'
         required: true
-        content:
-          application/json:
-            schema:
-              type: 'object'
-              properties:
-                unit_id:
-                  type: 'string'
-                unit_name:
-                  type: 'string'
-                unit_description:
-                  type: 'string'
-                unit_status:
-                  type: 'string'
-                  enum: [ 'active', 'inactive' ]
-              example:
-                unit_id: 'unit_001'
-                unit_name: 'Kilogram'
-                unit_description: 'Unit of weight used for measuring products'
-                unit_status: 'active'
+        schema:
+          type: 'object'
+          required:
+          - unit_id
+          - unit_name
+          - unit_description
+          - unit_status
+          properties:
+            unit_id:
+              type: 'string'
+              example: 'unit_001'
+            unit_name:
+              type: 'string'
+              example: 'Kilogram'
+            unit_description:
+              type: 'string'
+              example: 'Unit of weight used for measuring products'
+            unit_status:
+              type: 'string'
+              enum: [ 'active', 'inactive' ]
+              example: 'active'
       responses:
         201:
           description: 'Unit created successfully'
-          content:
-            application/json:
-              schema:
-                type: 'object'
-                properties:
-                  success:
-                    type: 'boolean'
-                    example: true
-                  message:
-                    type: 'string'
-                    example: 'Unit created successfully'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: true
+              message:
+                type: 'string'
+                example: 'Unit created successfully'
         400:
           description: 'Invalid input'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid input provided'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
     get:
       tags:
@@ -924,33 +1356,35 @@ paths:
       responses:
         200:
           description: 'List of units retrieved successfully'
-          content:
-            application/json:
-              schema:
-                type: 'array'
-                items:
-                  type: 'object'
-                  properties:
-                    unit_id:
-                      type: 'string'
-                    unit_name:
-                      type: 'string'
-                    unit_description:
-                      type: 'string'
-                    unit_status:
-                      type: 'string'
-                      enum: [ 'active', 'inactive' ]
-                example:
-                - unit_id: 'unit_001'
-                  unit_name: 'Kilogram'
-                  unit_description: 'Unit of weight used for measuring products'
-                  unit_status: 'active'
-                - unit_id: 'unit_002'
-                  unit_name: 'Meter'
-                  unit_description: 'Unit of length used for measuring products'
-                  unit_status: 'inactive'
+          schema:
+            type: 'array'
+            items:
+              type: 'object'
+              properties:
+                unit_id:
+                  type: 'string'
+                  example: 'unit_001'
+                unit_name:
+                  type: 'string'
+                  example: 'Kilogram'
+                unit_description:
+                  type: 'string'
+                  example: 'Unit of weight used for measuring products'
+                unit_status:
+                  type: 'string'
+                  enum: [ 'active', 'inactive' ]
+                  example: 'active'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
   /unit/{id}:
     get:
@@ -964,34 +1398,48 @@ paths:
         name: 'id'
         description: 'ID of the unit to retrieve'
         required: true
-        schema:
-          type: 'string'
+        type: 'string'
       responses:
         200:
           description: 'Unit details retrieved successfully'
-          content:
-            application/json:
-              schema:
-                type: 'object'
-                properties:
-                  unit_id:
-                    type: 'string'
-                  unit_name:
-                    type: 'string'
-                  unit_description:
-                    type: 'string'
-                  unit_status:
-                    type: 'string'
-                    enum: [ 'active', 'inactive' ]
-                example:
-                  unit_id: 'unit_001'
-                  unit_name: 'Kilogram'
-                  unit_description: 'Unit of weight used for measuring products'
-                  unit_status: 'active'
+          schema:
+            type: 'object'
+            properties:
+              unit_id:
+                type: 'string'
+                example: 'unit_001'
+              unit_name:
+                type: 'string'
+                example: 'Kilogram'
+              unit_description:
+                type: 'string'
+                example: 'Unit of weight used for measuring products'
+              unit_status:
+                type: 'string'
+                enum: [ 'active', 'inactive' ]
+                example: 'active'
         404:
           description: 'Unit not found'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Unit not found'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
     put:
       tags:
@@ -1008,49 +1456,76 @@ paths:
         name: 'id'
         description: 'ID of the unit to update'
         required: true
-        schema:
-          type: 'string'
+        type: 'string'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: 'object'
+              required:
+              - unit_name
+              - unit_description
+              - unit_status
               properties:
                 unit_id:
                   type: 'string'
+                  example: 'unit_001'
                 unit_name:
                   type: 'string'
+                  example: 'Kilogram'
                 unit_description:
                   type: 'string'
+                  example: 'Unit of weight used for measuring products'
                 unit_status:
                   type: 'string'
                   enum: [ 'active', 'inactive' ]
-              example:
-                unit_id: 'unit_001'
-                unit_name: 'Kilogram'
-                unit_description: 'Unit of weight used for measuring products'
-                unit_status: 'active'
+                  example: 'active'
       responses:
         200:
           description: 'Unit updated successfully'
-          content:
-            application/json:
-              schema:
-                type: 'object'
-                properties:
-                  success:
-                    type: 'boolean'
-                    example: true
-                  message:
-                    type: 'string'
-                    example: 'Unit updated successfully'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: true
+              message:
+                type: 'string'
+                example: 'Unit updated successfully'
         400:
           description: 'Invalid input'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid input provided'
         404:
           description: 'Unit not found'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Unit not found'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
 
     delete:
       tags:
@@ -1063,26 +1538,42 @@ paths:
         name: 'id'
         description: 'ID of the unit to delete'
         required: true
-        schema:
-          type: 'string'
+        type: 'string'
       responses:
         200:
           description: 'Unit deleted successfully'
-          content:
-            application/json:
-              schema:
-                type: 'object'
-                properties:
-                  success:
-                    type: 'boolean'
-                    example: true
-                  message:
-                    type: 'string'
-                    example: 'Unit deleted successfully'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: true
+              message:
+                type: 'string'
+                example: 'Unit deleted successfully'
         404:
           description: 'Unit not found'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Unit not found'
         500:
           description: 'Internal server error'
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
+
 definitions:
   UserProfile:
     type: 'object'
