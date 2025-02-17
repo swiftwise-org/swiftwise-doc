@@ -23,6 +23,8 @@ tags:
   description: 'Endpoints for managing product categories'
 - name: 'unit'
   description: 'Endpoints for managing units of measurement for products'
+- name: 'sales'
+  description: 'Endpoints for managing sales and sales items'
 schemes:
 - 'https'
 paths:
@@ -1881,6 +1883,21 @@ paths:
                 quantity_sold:
                   type: 'integer'
                   example: 2
+                product:
+                type: 'object'
+                properties:
+                  product_id:
+                    type: 'string'
+                    example: 'prod123'
+                  product_name:
+                    type: 'string'
+                    example: 'T-Shirt'
+                  product_price:
+                    type: 'number'
+                    example: 25.99
+                  product_description:
+                    type: 'string'
+                    example: 'A comfortable T-Shirt'
                 created_at:
                   type: 'string'
                   format: 'date-time'
@@ -1932,6 +1949,21 @@ paths:
               quantity_sold:
                 type: 'integer'
                 example: 2
+              product:
+                type: 'object'
+                properties:
+                  product_id:
+                    type: 'string'
+                    example: 'prod123'
+                  product_name:
+                    type: 'string'
+                    example: 'T-Shirt'
+                  product_price:
+                    type: 'number'
+                    example: 25.99
+                  product_description:
+                    type: 'string'
+                    example: 'A comfortable T-Shirt'
               created_at:
                 type: 'string'
                 format: 'date-time'
@@ -1985,7 +2017,13 @@ paths:
         required: true
         schema:
           type: 'object'
+          required:
+          - product_id
+          - quantity_sold
           properties:
+            product_id:
+              type: 'string'
+              example: 'prod123'
             quantity_sold:
               type: 'integer'
               example: 3
