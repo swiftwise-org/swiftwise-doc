@@ -1780,7 +1780,7 @@ paths:
               message:
                 type: 'string'
                 example: 'Internal server error occurred'
-   /sales:
+  /sales:
     post:
       tags:
       - 'sales'
