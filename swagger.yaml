@@ -1883,6 +1883,21 @@ paths:
                 quantity_sold:
                   type: 'integer'
                   example: 2
+                product:
+                  type: 'object'
+                  properties:
+                    product_id:
+                      type: 'string'
+                      example: 'prod123'
+                    product_name:
+                      type: 'string'
+                      example: 'T-Shirt'
+                    product_price:
+                      type: 'number'
+                      example: 25.99
+                    product_description:
+                      type: 'string'
+                      example: 'A comfortable T-Shirt'
                 created_at:
                   type: 'string'
                   format: 'date-time'
