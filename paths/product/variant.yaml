@@ -1,0 +1,101 @@
+patch:
+  tags:
+  - "product"
+  summary: "Update product variants"
+  description: "Updates an existing product variants with the provided details."
+  operationId: "updateProductVariants"
+  consumes:
+  - "application/json"
+  produces:
+  - "application/json"
+  parameters:
+  - in: 'body'
+    name: 'body'
+    description: 'Details to update product variants'
+    required: true
+    schema:
+      $ref: "#/components/schemas/ProductVariantsUpdateInput"
+  responses:
+    200:
+      description: "Product variants updated successfully"
+      schema:
+        type: object
+        properties:
+          success:
+            type: boolean
+            example: true
+          message:
+            type: string
+            example: "Product variants updated successfully"
+    400:
+      description: "Invalid input"
+      schema:
+        type: object
+        properties:
+          success:
+            type: boolean
+            example: false
+          message:
+            type: string
+            example: "Invalid input provided"
+    404:
+      description: "Product variants not found"
+      schema:
+        type: object
+        properties:
+          success:
+            type: boolean
+            example: false
+          message:
+            type: string
+            example: "Product variants not found"
+    500:
+      description: "Internal server error"
+      schema:
+        type: object
+        properties:
+          success:
+            type: boolean
+            example: false
+          message:
+            type: string
+            example: "Internal server error occurred"
+
+components:
+  schemas:
+    VariantUpdateItem:
+      type: object
+      required:
+      - variant_id
+      - price
+      - quantity
+      properties:
+        variant_id:
+          type: string
+          format: uuid
+          example: "9d674fb4-9801-44c0-a8ab-647c596d5d7b"
+        price:
+          type: number
+          example: 1000
+        quantity:
+          type: integer
+          example: 1
+    ProductVariantsUpdateInput:
+      type: object
+      required:
+      - product_id
+      - variant_tag_id
+      - variants
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          example: "76260551-9493-4e8a-86b2-45746e65cc09"
+        variant_tag_id:
+          type: string
+          format: uuid
+          example: "eb8c284c-ac7b-4bdc-8fee-4aa8db1558ad"
+        variants:
+          type: array
+          items:
+            $ref: "#/components/schemas/VariantUpdateItem"

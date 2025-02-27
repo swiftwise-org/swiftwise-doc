@@ -1,50 +1,51 @@
-tags:
-- 'sales'
-summary: 'Remove an item from a sale'
-description: 'Removes a specific item from a sale.'
-operationId: 'removeItemFromSale'
-parameters:
-- in: 'path'
-  name: 'sale_id'
-  description: 'ID of the sale'
-  required: true
-  type: 'string'
-- in: 'path'
-  name: 'product_id'
-  description: 'ID of the product to remove'
-  required: true
-  type: 'string'
-responses:
-  200:
-    description: 'Item removed from sale successfully'
-    schema:
-      type: 'object'
-      properties:
-        success:
-          type: 'boolean'
-          example: true
-        message:
-          type: 'string'
-          example: 'Item removed from sale successfully'
-  404:
-    description: 'Sale or item not found'
-    schema:
-      type: 'object'
-      properties:
-        success:
-          type: 'boolean'
-          example: false
-        message:
-          type: 'string'
-          example: 'Sale or item not found'
-  500:
-    description: 'Internal server error'
-    schema:
-      type: 'object'
-      properties:
-        success:
-          type: 'boolean'
-          example: false
-        message:
-          type: 'string'
-          example: 'Internal server error occurred'
+delete:
+  tags:
+  - 'sales'
+  summary: 'Remove an item from a sale'
+  description: 'Removes a specific item from a sale.'
+  operationId: 'removeItemFromSale'
+  parameters:
+  - in: 'path'
+    name: 'sale_id'
+    description: 'ID of the sale'
+    required: true
+    type: 'string'
+  - in: 'path'
+    name: 'product_id'
+    description: 'ID of the product to remove'
+    required: true
+    type: 'string'
+  responses:
+    200:
+      description: 'Item removed from sale successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Item removed from sale successfully'
+    404:
+      description: 'Sale or item not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Sale or item not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

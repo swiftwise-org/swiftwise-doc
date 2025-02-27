@@ -47,6 +47,8 @@ paths:
     $ref: './paths/product/index.yaml'
   /product/{id}:
     $ref: './paths/product/{id}.yaml'
+  /product/variants:
+    $ref: './paths/product/variant.yaml'
   /category:
     $ref: './paths/category/index.yaml'
   /category/{id}:
@@ -57,6 +59,10 @@ paths:
     $ref: './paths/unit/{id}.yaml'
   /sales:
     $ref: './paths/sales/index.yaml'
+  /sales/{sale_id}:
+    $ref: './paths/sales/{sale_id}.yaml'
+  /sales/{sale_id}/items/{product_id}:
+    $ref: './paths/sales/remove_item_from_sale.yaml'
 definitions:
   UserProfile:
     $ref: './definitions/UserProfile.yaml'

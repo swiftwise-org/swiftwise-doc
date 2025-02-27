@@ -14,79 +14,7 @@ post:
     description: 'Product details to create a new product'
     required: true
     schema:
-      type: 'object'
-      required:
-      - product_name
-      - product_description
-      - product_main_price
-      - product_quantity
-      - category_id
-      - unit_id
-      - product_status
-      - track_inventory
-      - product_slug
-      - product_barcode
-      - product_purchase_cost
-      - product_available
-      - variant_id
-      properties:
-        product_main_price:
-          type: 'number'
-          format: 'float'
-          example: 199.99
-        category_id:
-          type: 'string'
-          example: 'cat_wearable'
-        product_quantity:
-          type: 'integer'
-          example: 30
-        product_status:
-          type: 'string'
-          enum: [ 'active', 'inactive' ]
-          example: 'active'
-        product_name:
-          type: 'string'
-          example: 'Smartwatch Pro'
-        track_inventory:
-          type: 'boolean'
-          example: true
-        product_slug:
-          type: 'string'
-          example: 'smartwatch-pro'
-        other:
-          type: 'object'
-          properties:
-            color:
-              type: 'string'
-              example: 'silver'
-            water_resistant:
-              type: 'string'
-              example: 'Yes'
-            brand:
-              type: 'string'
-              example: 'WearTech'
-        cover_url:
-          type: 'string'
-          example: 'https://example.com/images/smartwatch.jpg'
-        product_barcode:
-          type: 'string'
-          example: '9876543210987'
-        product_purchase_cost:
-          type: 'number'
-          format: 'float'
-          example: 120
-        product_available:
-          type: 'integer'
-          example: 28
-        unit_id:
-          type: 'string'
-          example: 'unit_002'
-        product_description:
-          type: 'string'
-          example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
-        variant_id:
-          type: 'string'
-          example: 'var_002'
+      $ref: '#/components/schemas/ProductInput'
   responses:
     201:
       description: 'Product created successfully'
@@ -135,68 +63,7 @@ get:
       schema:
         type: 'array'
         items:
-          type: 'object'
-          properties:
-            id:
-              type: 'string'
-              example: 'product123'
-            product_main_price:
-              type: 'number'
-              format: 'float'
-              example: 199.99
-            category_id:
-              type: 'string'
-              example: 'cat_wearable'
-            product_quantity:
-              type: 'integer'
-              example: 30
-            product_status:
-              type: 'string'
-              enum: [ 'active', 'inactive' ]
-              example: 'active'
-            product_name:
-              type: 'string'
-              example: 'Smartwatch Pro'
-            track_inventory:
-              type: 'boolean'
-              example: true
-            product_slug:
-              type: 'string'
-              example: 'smartwatch-pro'
-            other:
-              type: 'object'
-              properties:
-                color:
-                  type: 'string'
-                  example: 'silver'
-                water_resistant:
-                  type: 'string'
-                  example: 'Yes'
-                brand:
-                  type: 'string'
-                  example: 'WearTech'
-            cover_url:
-              type: 'string'
-              example: 'https://example.com/images/smartwatch.jpg'
-            product_barcode:
-              type: 'string'
-              example: '9876543210987'
-            product_purchase_cost:
-              type: 'number'
-              format: 'float'
-              example: 120
-            product_available:
-              type: 'integer'
-              example: 28
-            unit_id:
-              type: 'string'
-              example: 'unit_002'
-            product_description:
-              type: 'string'
-              example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
-            variant_id:
-              type: 'string'
-              example: 'var_002'
+          $ref: '#/components/schemas/ProductOutput'
     500:
       description: 'Internal server error'
       schema:
@@ -208,3 +75,218 @@ get:
           message:
             type: 'string'
             example: 'Internal server error occurred'
+
+components:
+  schemas:
+    Variant:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          example: 1
+        price:
+          type: number
+          example: 1000
+        name:
+          type: string
+          example: 'Red'
+    VariantTag:
+      type: object
+      properties:
+        type:
+          type: string
+          example: 'Color'
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variant'
+    VariantItem:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          example: 1
+        updated_at:
+          type: string
+          format: date-time
+          example: "2025-02-26T23:58:00.467Z"
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-02-26T23:58:00.467Z"
+        variant_tag_id:
+          type: string
+          format: uuid
+          example: "eb8c284c-ac7b-4bdc-8fee-4aa8db1558ad"
+        price:
+          type: number
+          example: 1000
+        name:
+          type: string
+          example: "Red"
+        variant_id:
+          type: string
+          format: uuid
+          example: "9d674fb4-9801-44c0-a8ab-647c596d5d7b"
+    VariantTagResponse:
+      type: object
+      properties:
+        type:
+          type: string
+          example: "Color"
+        variant_tag_id:
+          type: string
+          format: uuid
+          example: "eb8c284c-ac7b-4bdc-8fee-4aa8db1558ad"
+        variants:
+          type: array
+          items:
+            $ref: "#/components/schemas/VariantItem"
+    UnitResponse:
+      type: object
+      properties:
+        unit_id:
+          type: string
+          format: uuid
+          example: "ca2ddbdd-3e23-439b-8430-3714fe93feb5"
+        abbreviation:
+          type: string
+          example: "pc"
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-01-31T20:23:32.346Z"
+        unit_name:
+          type: string
+          example: "Piece"
+        owner_id:
+          type: string
+          format: uuid
+          example: "18017360-3051-70b6-7071-b1ca6639d413"
+    CategoryResponse:
+      type: object
+      properties:
+        category_description:
+          type: string
+          example: "Smart phones"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2025-02-26T23:36:11.337Z"
+        category_id:
+          type: string
+          format: uuid
+          example: "dedb8ac0-309f-4977-8ce3-db60bc8ce66a"
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-02-26T23:36:11.337Z"
+        category_name:
+          type: string
+          example: "Smart Phones"
+        owner_id:
+          type: string
+          format: uuid
+          example: "18017360-3051-70b6-7071-b1ca6639d413"
+    ProductInput:
+      type: object
+      required:
+      - product_name
+      - product_quantity
+      - product_main_price
+      - product_purchase_cost
+      - category_id
+      properties:
+        product_name:
+          type: string
+          example: 'Smartwatch Pro'
+        product_quantity:
+          type: integer
+          example: 30
+        product_main_price:
+          type: number
+          format: float
+          example: 199.99
+        product_purchase_cost:
+          type: number
+          format: float
+          example: 120
+        category_id:
+          type: string
+          example: 'cat_wearable'
+        product_description:
+          type: string
+          example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
+        product_status:
+          type: string
+          enum:
+          - 'active'
+          - 'inactive'
+          example: 'active'
+        track_inventory:
+          type: boolean
+          example: true
+        cover_url:
+          type: string
+          example: 'https://example.com/images/smartwatch.jpg'
+        product_barcode:
+          type: string
+          example: '9876543210987'
+        product_available:
+          type: integer
+          example: 28
+        unit_id:
+          type: string
+          example: 'unit_002'
+        variantTag:
+          $ref: '#/components/schemas/VariantTag'
+    ProductOutput:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'product123'
+        product_main_price:
+          type: number
+          format: float
+          example: 199.99
+        category:
+          $ref: '#/components/schemas/CategoryResponse'
+        product_quantity:
+          type: integer
+          example: 30
+        product_status:
+          type: string
+          enum:
+          - 'active'
+          - 'inactive'
+          example: 'active'
+        product_name:
+          type: string
+          example: 'Smartwatch Pro'
+        track_inventory:
+          type: boolean
+          example: true
+        product_slug:
+          type: string
+          example: 'smartwatch-pro'
+        cover_url:
+          type: string
+          example: 'https://example.com/images/smartwatch.jpg'
+        product_barcode:
+          type: string
+          example: '9876543210987'
+        product_purchase_cost:
+          type: number
+          format: float
+          example: 120
+        product_available:
+          type: integer
+          example: 28
+        unit:
+          $ref: '#/components/schemas/UnitResponse'
+        product_description:
+          type: string
+          example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
+        variantTag:
+          $ref: '#/components/schemas/VariantTagResponse'
