@@ -1,0 +1,61 @@
+tags:
+- 'sales'
+summary: 'Get all sales'
+description: 'Retrieves a list of all sales in the system.'
+operationId: 'getAllSales'
+produces:
+- 'application/json'
+responses:
+  200:
+    description: 'List of sales retrieved successfully'
+    schema:
+      type: 'array'
+      items:
+        type: 'object'
+        properties:
+          sale_id:
+            type: 'string'
+            example: 'sale123'
+          owner_id:
+            type: 'string'
+            example: 'user123'
+          product_id:
+            type: 'string'
+            example: 'prod123'
+          quantity_sold:
+            type: 'integer'
+            example: 2
+          product:
+            type: 'object'
+            properties:
+              product_id:
+                type: 'string'
+                example: 'prod123'
+              product_name:
+                type: 'string'
+                example: 'T-Shirt'
+              product_price:
+                type: 'number'
+                example: 25.99
+              product_description:
+                type: 'string'
+                example: 'A comfortable T-Shirt'
+          created_at:
+            type: 'string'
+            format: 'date-time'
+            example: '2023-10-01T12:00:00.000Z'
+          updated_at:
+            type: 'string'
+            format: 'date-time'
+            example: '2023-10-01T12:00:00.000Z'
+  500:
+    description: 'Internal server error'
+    schema:
+      type: 'object'
+      properties:
+        success:
+          type: 'boolean'
+          example: false
+        message:
+          type: 'string'
+          example: 'Internal server error occurred'

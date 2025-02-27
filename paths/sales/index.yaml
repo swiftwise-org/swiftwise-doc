@@ -1,0 +1,14 @@
+post:
+  $ref: './create_sale.yaml'
+get:
+  $ref: './get_all_sales.yaml'
+/{sale_id}:
+  get:
+    $ref: './get_sale_by_id.yaml'
+  patch:
+    $ref: './update_sale.yaml'
+  delete:
+    $ref: './delete_sale.yaml'
+/{sale_id}/items/{product_id}:
+  delete:
+    $ref: './remove_item_from_sale.yaml'

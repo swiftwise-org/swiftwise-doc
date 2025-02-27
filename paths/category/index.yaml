@@ -1,0 +1,119 @@
+post:
+  tags:
+  - 'category'
+  summary: 'Create a new category'
+  description: 'Adds a new category to the system.'
+  operationId: 'createCategory'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'body'
+    name: 'body'
+    description: 'Category details to create a new category'
+    required: true
+    schema:
+      type: 'object'
+      required:
+      - category_id
+      - category_name
+      - category_description
+      - category_status
+      properties:
+        category_id:
+          type: 'string'
+          example: 'cat_wearable'
+        category_name:
+          type: 'string'
+          example: 'Wearables'
+        category_description:
+          type: 'string'
+          example: 'Products related to wearable technology.'
+        parent_category_id:
+          type: 'string'
+          nullable: true
+          example: null
+        category_status:
+          type: 'string'
+          enum: [ 'active', 'inactive' ]
+          example: 'active'
+  responses:
+    201:
+      description: 'Category created successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Category created successfully'
+    400:
+      description: 'Invalid input'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid input provided'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+
+get:
+  tags:
+  - 'category'
+  summary: 'Get a list of categories'
+  description: 'Retrieves a list of all categories in the system.'
+  operationId: 'getCategories'
+  produces:
+  - 'application/json'
+  responses:
+    200:
+      description: 'List of categories retrieved successfully'
+      schema:
+        type: 'array'
+        items:
+          type: 'object'
+          properties:
+            category_id:
+              type: 'string'
+              example: 'cat_wearable'
+            category_name:
+              type: 'string'
+              example: 'Wearables'
+            category_description:
+              type: 'string'
+              example: 'Products related to wearable technology.'
+            parent_category_id:
+              type: 'string'
+              nullable: true
+              example: null
+            category_status:
+              type: 'string'
+              enum: [ 'active', 'inactive' ]
+              example: 'active'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

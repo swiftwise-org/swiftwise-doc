@@ -1,0 +1,111 @@
+post:
+  tags:
+  - 'unit'
+  summary: 'Create a new unit'
+  description: 'Adds a new unit to the system.'
+  operationId: 'createUnit'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'body'
+    name: 'body'
+    description: 'Unit details to create a new unit'
+    required: true
+    schema:
+      type: 'object'
+      required:
+      - unit_id
+      - unit_name
+      - unit_description
+      - unit_status
+      properties:
+        unit_id:
+          type: 'string'
+          example: 'unit_001'
+        unit_name:
+          type: 'string'
+          example: 'Kilogram'
+        unit_description:
+          type: 'string'
+          example: 'Unit of weight used for measuring products'
+        unit_status:
+          type: 'string'
+          enum: [ 'active', 'inactive' ]
+          example: 'active'
+  responses:
+    201:
+      description: 'Unit created successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Unit created successfully'
+    400:
+      description: 'Invalid input'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid input provided'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+
+get:
+  tags:
+  - 'unit'
+  summary: 'Get a list of units'
+  description: 'Retrieves a list of all units in the system.'
+  operationId: 'getUnits'
+  produces:
+  - 'application/json'
+  responses:
+    200:
+      description: 'List of units retrieved successfully'
+      schema:
+        type: 'array'
+        items:
+          type: 'object'
+          properties:
+            unit_id:
+              type: 'string'
+              example: 'unit_001'
+            unit_name:
+              type: 'string'
+              example: 'Kilogram'
+            unit_description:
+              type: 'string'
+              example: 'Unit of weight used for measuring products'
+            unit_status:
+              type: 'string'
+              enum: [ 'active', 'inactive' ]
+              example: 'active'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

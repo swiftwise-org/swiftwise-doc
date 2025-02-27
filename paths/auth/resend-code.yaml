@@ -1,0 +1,57 @@
+post:
+  tags:
+  - 'auth'
+  summary: 'Resend confirmation code'
+  description: 'Resends a new confirmation code to the user email.'
+  operationId: 'resendConfirmationCode'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'body'
+    name: 'body'
+    description: 'User email to resend the confirmation code'
+    required: true
+    schema:
+      type: 'object'
+      required:
+      - email
+      properties:
+        email:
+          type: 'string'
+          example: 'john@example.com'
+  responses:
+    200:
+      description: 'Confirmation code sent successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Confirmation code sent successfully'
+    400:
+      description: 'Invalid email'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid email provided'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

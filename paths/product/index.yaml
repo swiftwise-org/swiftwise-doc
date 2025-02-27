@@ -1,0 +1,210 @@
+post:
+  tags:
+  - 'product'
+  summary: 'Create a new product'
+  description: 'Adds a new product to the inventory system.'
+  operationId: 'createProduct'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'body'
+    name: 'body'
+    description: 'Product details to create a new product'
+    required: true
+    schema:
+      type: 'object'
+      required:
+      - product_name
+      - product_description
+      - product_main_price
+      - product_quantity
+      - category_id
+      - unit_id
+      - product_status
+      - track_inventory
+      - product_slug
+      - product_barcode
+      - product_purchase_cost
+      - product_available
+      - variant_id
+      properties:
+        product_main_price:
+          type: 'number'
+          format: 'float'
+          example: 199.99
+        category_id:
+          type: 'string'
+          example: 'cat_wearable'
+        product_quantity:
+          type: 'integer'
+          example: 30
+        product_status:
+          type: 'string'
+          enum: [ 'active', 'inactive' ]
+          example: 'active'
+        product_name:
+          type: 'string'
+          example: 'Smartwatch Pro'
+        track_inventory:
+          type: 'boolean'
+          example: true
+        product_slug:
+          type: 'string'
+          example: 'smartwatch-pro'
+        other:
+          type: 'object'
+          properties:
+            color:
+              type: 'string'
+              example: 'silver'
+            water_resistant:
+              type: 'string'
+              example: 'Yes'
+            brand:
+              type: 'string'
+              example: 'WearTech'
+        cover_url:
+          type: 'string'
+          example: 'https://example.com/images/smartwatch.jpg'
+        product_barcode:
+          type: 'string'
+          example: '9876543210987'
+        product_purchase_cost:
+          type: 'number'
+          format: 'float'
+          example: 120
+        product_available:
+          type: 'integer'
+          example: 28
+        unit_id:
+          type: 'string'
+          example: 'unit_002'
+        product_description:
+          type: 'string'
+          example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
+        variant_id:
+          type: 'string'
+          example: 'var_002'
+  responses:
+    201:
+      description: 'Product created successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Product created successfully'
+    400:
+      description: 'Invalid input'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid input provided'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+get:
+  tags:
+  - 'product'
+  summary: 'Get a list of all products'
+  description: 'Retrieves a list of all products in the inventory.'
+  operationId: 'getProducts'
+  produces:
+  - 'application/json'
+  responses:
+    200:
+      description: 'List of products retrieved successfully'
+      schema:
+        type: 'array'
+        items:
+          type: 'object'
+          properties:
+            id:
+              type: 'string'
+              example: 'product123'
+            product_main_price:
+              type: 'number'
+              format: 'float'
+              example: 199.99
+            category_id:
+              type: 'string'
+              example: 'cat_wearable'
+            product_quantity:
+              type: 'integer'
+              example: 30
+            product_status:
+              type: 'string'
+              enum: [ 'active', 'inactive' ]
+              example: 'active'
+            product_name:
+              type: 'string'
+              example: 'Smartwatch Pro'
+            track_inventory:
+              type: 'boolean'
+              example: true
+            product_slug:
+              type: 'string'
+              example: 'smartwatch-pro'
+            other:
+              type: 'object'
+              properties:
+                color:
+                  type: 'string'
+                  example: 'silver'
+                water_resistant:
+                  type: 'string'
+                  example: 'Yes'
+                brand:
+                  type: 'string'
+                  example: 'WearTech'
+            cover_url:
+              type: 'string'
+              example: 'https://example.com/images/smartwatch.jpg'
+            product_barcode:
+              type: 'string'
+              example: '9876543210987'
+            product_purchase_cost:
+              type: 'number'
+              format: 'float'
+              example: 120
+            product_available:
+              type: 'integer'
+              example: 28
+            unit_id:
+              type: 'string'
+              example: 'unit_002'
+            product_description:
+              type: 'string'
+              example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
+            variant_id:
+              type: 'string'
+              example: 'var_002'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

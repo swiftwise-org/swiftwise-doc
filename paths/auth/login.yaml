@@ -1,0 +1,61 @@
+post:
+  tags:
+  - 'auth'
+  summary: 'User login'
+  description: 'Authenticates a user and returns access, ID, and refresh tokens.'
+  operationId: 'loginUser'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'body'
+    name: 'body'
+    description: 'User login details'
+    required: true
+    schema:
+      type: 'object'
+      required:
+      - email
+      - password
+      properties:
+        email:
+          type: 'string'
+          example: 'john@example.com'
+        password:
+          type: 'string'
+          example: 'Password123!'
+  responses:
+    200:
+      description: 'Login successful'
+      schema:
+        type: 'object'
+        properties:
+          token:
+            type: 'string'
+            example: 'eyJraWQiOiJ...'
+          refreshToken:
+            type: 'string'
+            example: 'eyJraWQiOiJ...'
+    401:
+      description: 'Unauthorized'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Unauthorized access'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

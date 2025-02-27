@@ -1,0 +1,70 @@
+tags:
+- 'sales'
+summary: 'Create a new sale'
+description: 'Creates a new sale with the provided items.'
+operationId: 'createSale'
+consumes:
+- 'application/json'
+produces:
+- 'application/json'
+parameters:
+- in: 'body'
+  name: 'body'
+  description: 'Sale details to create a new sale'
+  required: true
+  schema:
+    type: 'object'
+    required:
+    - items
+    properties:
+      items:
+        type: 'array'
+        items:
+          type: 'object'
+          required:
+          - product_id
+          - quantity_sold
+          properties:
+            product_id:
+              type: 'string'
+              example: 'prod123'
+            quantity_sold:
+              type: 'integer'
+              example: 2
+responses:
+  201:
+    description: 'Sale created successfully'
+    schema:
+      type: 'object'
+      properties:
+        success:
+          type: 'boolean'
+          example: true
+        message:
+          type: 'string'
+          example: 'Sale created successfully'
+        sale_id:
+          type: 'string'
+          example: 'sale123'
+  400:
+    description: 'Invalid input'
+    schema:
+      type: 'object'
+      properties:
+        success:
+          type: 'boolean'
+          example: false
+        message:
+          type: 'string'
+          example: 'Invalid input provided'
+  500:
+    description: 'Internal server error'
+    schema:
+      type: 'object'
+      properties:
+        success:
+          type: 'boolean'
+          example: false
+        message:
+          type: 'string'
+          example: 'Internal server error occurred'

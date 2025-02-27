@@ -1,0 +1,51 @@
+post:
+  tags:
+  - 'auth'
+  summary: 'Logout user'
+  description: 'Logs out an authenticated user by invalidating their session.'
+  operationId: 'logoutUser'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - name: 'Authorization'
+    in: 'header'
+    description: 'Bearer token to invalidate the session.'
+    required: true
+    type: 'string'
+    example: 'Bearer eyJraWQiOiJ...'
+  responses:
+    200:
+      description: 'User logged out successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'User logged out successfully'
+    401:
+      description: 'Unauthorized'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Unauthorized access'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

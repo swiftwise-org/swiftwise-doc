@@ -1,0 +1,61 @@
+post:
+  tags:
+  - 'auth'
+  summary: 'Confirm email verification'
+  description: 'Verifies a user email using the confirmation code sent during registration.'
+  operationId: 'confirmEmail'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'body'
+    name: 'body'
+    description: 'Email confirmation details'
+    required: true
+    schema:
+      type: 'object'
+      required:
+      - email
+      - confirmationCode
+      properties:
+        email:
+          type: 'string'
+          example: 'john@example.com'
+        confirmationCode:
+          type: 'string'
+          example: '123456'
+  responses:
+    200:
+      description: 'Email confirmed successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Email successfully verified'
+    400:
+      description: 'Invalid confirmation code'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid confirmation code'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

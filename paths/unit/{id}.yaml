@@ -1,0 +1,186 @@
+get:
+  tags:
+  - 'unit'
+  summary: 'Get a unit by ID'
+  description: 'Retrieves a single unit’s details by its ID.'
+  operationId: 'getUnitById'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the unit to retrieve'
+    required: true
+    type: 'string'
+  responses:
+    200:
+      description: 'Unit details retrieved successfully'
+      schema:
+        type: 'object'
+        properties:
+          unit_id:
+            type: 'string'
+            example: 'unit_001'
+          unit_name:
+            type: 'string'
+            example: 'Kilogram'
+          unit_description:
+            type: 'string'
+            example: 'Unit of weight used for measuring products'
+          unit_status:
+            type: 'string'
+            enum: [ 'active', 'inactive' ]
+            example: 'active'
+    404:
+      description: 'Unit not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Unit not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+
+put:
+  tags:
+  - 'unit'
+  summary: 'Update an existing unit'
+  description: 'Allows modification of an existing unit’s details.'
+  operationId: 'updateUnit'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the unit to update'
+    required: true
+    type: 'string'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: 'object'
+          required:
+          - unit_name
+          - unit_description
+          - unit_status
+          properties:
+            unit_id:
+              type: 'string'
+              example: 'unit_001'
+            unit_name:
+              type: 'string'
+              example: 'Kilogram'
+            unit_description:
+              type: 'string'
+              example: 'Unit of weight used for measuring products'
+            unit_status:
+              type: 'string'
+              enum: [ 'active', 'inactive' ]
+              example: 'active'
+  responses:
+    200:
+      description: 'Unit updated successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Unit updated successfully'
+    400:
+      description: 'Invalid input'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid input provided'
+    404:
+      description: 'Unit not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Unit not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+
+delete:
+  tags:
+  - 'unit'
+  summary: 'Delete a unit'
+  description: 'Deletes a unit from the system.'
+  operationId: 'deleteUnit'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the unit to delete'
+    required: true
+    type: 'string'
+  responses:
+    200:
+      description: 'Unit deleted successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Unit deleted successfully'
+    404:
+      description: 'Unit not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Unit not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

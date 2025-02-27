@@ -1,3 +1,4 @@
+---
 swagger: '2.0'
 info:
   description: 'API documentation for the SwiftWise Inventory Management System.'
@@ -27,9 +28,9 @@ tags:
 schemes:
 - 'https'
 paths:
-  $ref: './paths/index.yaml'
+
 definitions:
-  $ref: './definitions/index.yaml'
+
 externalDocs:
   description: 'Find out more about Swagger'
   url: 'http://swagger.io'

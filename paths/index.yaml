@@ -1,0 +1,30 @@
+/auth/register:
+  $ref: './auth/register.yaml'
+/auth/confirm-email:
+  $ref: './auth/confirm-email.yaml'
+/auth/resend-code:
+  $ref: './auth/resend-code.yaml'
+/auth/forgot-password:
+  $ref: './auth/forgot-password.yaml'
+/auth/confirm-forgot-password:
+  $ref: './auth/confirm-forgot-password.yaml'
+/auth/login:
+  $ref: './auth/login.yaml'
+/auth/logout:
+  $ref: './auth/logout.yaml'
+/user:
+  $ref: './user/index.yaml'
+/product:
+  $ref: './product/index.yaml'
+/product/{id}:
+  $ref: './product/{id}.yaml'
+/category:
+  $ref: './category/index.yaml'
+/category/{id}:
+  $ref: './category/{id}.yaml'
+/unit:
+  $ref: './unit/index.yaml'
+/unit/{id}:
+  $ref: './unit/{id}.yaml'
+/sales:
+  $ref: './sales/index.yaml'

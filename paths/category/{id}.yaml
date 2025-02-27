@@ -1,0 +1,195 @@
+get:
+  tags:
+  - 'category'
+  summary: 'Get a category by ID'
+  description: 'Retrieves a single category’s details by its ID.'
+  operationId: 'getCategoryById'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the category to retrieve'
+    required: true
+    type: 'string'
+  responses:
+    200:
+      description: 'Category details retrieved successfully'
+      schema:
+        type: 'object'
+        properties:
+          category_id:
+            type: 'string'
+            example: 'cat_wearable'
+          category_name:
+            type: 'string'
+            example: 'Wearables'
+          category_description:
+            type: 'string'
+            example: 'Products related to wearable technology.'
+          parent_category_id:
+            type: 'string'
+            nullable: true
+            example: null
+          category_status:
+            type: 'string'
+            enum: [ 'active', 'inactive' ]
+            example: 'active'
+    404:
+      description: 'Category not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Category not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+
+put:
+  tags:
+  - 'category'
+  summary: 'Update an existing category'
+  description: 'Allows modification of an existing category’s details.'
+  operationId: 'updateCategory'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the category to update'
+    required: true
+    type: 'string'
+  - in: 'body'
+    name: 'body'
+    description: 'Updated category details'
+    required: true
+    schema:
+      type: 'object'
+      required:
+      - category_id
+      - category_name
+      - category_description
+      - category_status
+      properties:
+        category_id:
+          type: 'string'
+          example: 'cat_wearable'
+        category_name:
+          type: 'string'
+          example: 'Wearables'
+        category_description:
+          type: 'string'
+          example: 'Products related to wearable technology.'
+        parent_category_id:
+          type: 'string'
+          nullable: true
+          example: null
+        category_status:
+          type: 'string'
+          enum: [ 'active', 'inactive' ]
+          example: 'active'
+  responses:
+    200:
+      description: 'Category updated successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Category updated successfully'
+    400:
+      description: 'Invalid input'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid input provided'
+    404:
+      description: 'Category not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Category not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+
+delete:
+  tags:
+  - 'category'
+  summary: 'Delete a category'
+  description: 'Deletes a category from the system.'
+  operationId: 'deleteCategory'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the category to delete'
+    required: true
+    type: 'string'
+  responses:
+    200:
+      description: 'Category deleted successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Category deleted successfully'
+    404:
+      description: 'Category not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Category not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
