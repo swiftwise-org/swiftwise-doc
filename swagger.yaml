@@ -27,9 +27,39 @@ tags:
 schemes:
 - 'https'
 paths:
-  $ref: './paths/index.yaml'
+  /auth/register:
+    $ref: './paths/auth/register.yaml'
+  /auth/confirm-email:
+    $ref: './paths/auth/confirm-email.yaml'
+  /auth/resend-code:
+    $ref: './paths/auth/resend-code.yaml'
+  /auth/forgot-password:
+    $ref: './paths/auth/forgot-password.yaml'
+  /auth/confirm-forgot-password:
+    $ref: './paths/auth/confirm-forgot-password.yaml'
+  /auth/login:
+    $ref: './paths/auth/login.yaml'
+  /auth/logout:
+    $ref: './paths/auth/logout.yaml'
+  /user:
+    $ref: './paths/user/index.yaml'
+  /product:
+    $ref: './paths/product/index.yaml'
+  /product/{id}:
+    $ref: './paths/product/{id}.yaml'
+  /category:
+    $ref: './paths/category/index.yaml'
+  /category/{id}:
+    $ref: './paths/category/{id}.yaml'
+  /unit:
+    $ref: './paths/unit/index.yaml'
+  /unit/{id}:
+    $ref: './paths/unit/{id}.yaml'
+  /sales:
+    $ref: './paths/sales/index.yaml'
 definitions:
-  $ref: './definitions/index.yaml'
+  UserProfile:
+    $ref: './definitions/UserProfile.yaml'
 externalDocs:
   description: 'Find out more about Swagger'
   url: 'http://swagger.io'
