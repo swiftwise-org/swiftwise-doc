@@ -17,10 +17,8 @@ get:
   responses:
     200:
       description: 'User profile retrieved successfully'
-      content:
-        application/json:
-          schema:
-            $ref: '../../definitions/UserProfile.yaml'
+      schema:
+        $ref: '../../definitions/UserProfile.yaml'
     400:
       description: 'Invalid or missing userId'
       content:
@@ -36,43 +34,37 @@ get:
                 example: 'Invalid or missing userId'
     401:
       description: 'Unauthorized'
-      content:
-        application/json:
-          schema:
-            type: 'object'
-            properties:
-              success:
-                type: 'boolean'
-                example: false
-              message:
-                type: 'string'
-                example: 'Unauthorized access'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Unauthorized access'
     404:
       description: 'User not found'
-      content:
-        application/json:
-          schema:
-            type: 'object'
-            properties:
-              success:
-                type: 'boolean'
-                example: false
-              message:
-                type: 'string'
-                example: 'User not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'User not found'
     500:
       description: 'Internal server error'
-      content:
-        application/json:
-          schema:
-            type: 'object'
-            properties:
-              success:
-                type: 'boolean'
-                example: false
-              message:
-                type: 'string'
-                example: 'Internal server error occurred'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
 
 put:
   tags:
@@ -97,48 +89,7 @@ put:
     description: 'Profile attributes to update as key-value pairs'
     required: true
     schema:
-      type: 'object'
-      properties:
-        preferred_username:
-          type: 'string'
-        email:
-          type: 'string'
-        email_verified:
-          type: 'boolean'
-        phone_number:
-          type: 'string'
-        phone_number_verified:
-          type: 'boolean'
-        family_name:
-          type: 'string'
-        given_name:
-          type: 'string'
-        nickname:
-          type: 'string'
-        gender:
-          type: 'string'
-        birthdate:
-          type: 'string'
-        address:
-          type: 'string'
-        locale:
-          type: 'string'
-        picture:
-          type: 'string'
-      example:
-        preferred_username: 'johndoe'
-        email: 'jane.doe@example.com'
-        email_verified: true
-        phone_number: '+1234567890'
-        phone_number_verified: false
-        family_name: 'Doe'
-        given_name: 'Jane'
-        nickname: 'Janey'
-        gender: 'Female'
-        birthdate: '1990-01-01'
-        address: '123 Main St, Springfield'
-        locale: 'en-US'
-        picture: 'https://example.com/picture.jpg'
+      $ref: '../../definitions/UserProfile.yaml'
   responses:
     200:
       description: 'Profile updated successfully'
@@ -195,3 +146,54 @@ put:
           message:
             type: 'string'
             example: 'Internal server error occurred'
+
+definitions:
+  UserProfile:
+    type: 'object'
+    properties:
+      id:
+        type: 'string'
+      preferred_username:
+        type: 'string'
+      email:
+        type: 'string'
+      email_verified:
+        type: 'boolean'
+      phone_number:
+        type: 'string'
+      phone_number_verified:
+        type: 'boolean'
+      family_name:
+        type: 'string'
+      given_name:
+        type: 'string'
+      name:
+        type: 'string'
+      nickname:
+        type: 'string'
+      gender:
+        type: 'string'
+      birthdate:
+        type: 'string'
+      address:
+        type: 'string'
+      locale:
+        type: 'string'
+      picture:
+        type: 'string'
+    example:
+      id: 'user123'
+      preferred_username: 'johndoe'
+      email: 'jane.doe@example.com'
+      email_verified: true
+      phone_number: '+1234567890'
+      phone_number_verified: false
+      family_name: 'Doe'
+      given_name: 'Jane'
+      name: 'Jane Doe'
+      nickname: 'Janey'
+      gender: 'Female'
+      birthdate: '1990-01-01'
+      address: '123 Main St, Springfield'
+      locale: 'en-US'
+      picture: 'https://example.com/picture.jpg'
