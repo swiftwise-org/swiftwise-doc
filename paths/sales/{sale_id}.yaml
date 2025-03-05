@@ -16,41 +16,50 @@ get:
       schema:
         type: 'object'
         properties:
-          sale_id:
-            type: 'string'
-            example: 'sale123'
-          owner_id:
-            type: 'string'
-            example: 'user123'
-          product_id:
-            type: 'string'
-            example: 'prod123'
-          quantity_sold:
-            type: 'integer'
-            example: 2
-          product:
+          data:
             type: 'object'
             properties:
-              product_id:
-                type: 'string'
-                example: 'prod123'
-              product_name:
-                type: 'string'
-                example: 'T-Shirt'
-              product_price:
-                type: 'number'
-                example: 25.99
-              product_description:
-                type: 'string'
-                example: 'A comfortable T-Shirt'
-          created_at:
-            type: 'string'
-            format: 'date-time'
-            example: '2023-10-01T12:00:00.000Z'
-          updated_at:
-            type: 'string'
-            format: 'date-time'
-            example: '2023-10-01T12:00:00.000Z'
+              sale:
+                type: 'object'
+                properties:
+                  sale_id:
+                    type: 'string'
+                    example: 'sale123'
+                  owner_id:
+                    type: 'string'
+                    example: 'user123'
+                  product_id:
+                    type: 'string'
+                    example: 'prod123'
+                  quantity_sold:
+                    type: 'integer'
+                    example: 2
+                  product:
+                    type: 'object'
+                    properties:
+                      product_id:
+                        type: 'string'
+                        example: 'prod123'
+                      product_name:
+                        type: 'string'
+                        example: 'T-Shirt'
+                      product_price:
+                        type: 'number'
+                        example: 25.99
+                      product_description:
+                        type: 'string'
+                        example: 'A comfortable T-Shirt'
+                  created_at:
+                    type: 'string'
+                    format: 'date-time'
+                    example: '2023-10-01T12:00:00.000Z'
+                  updated_at:
+                    type: 'string'
+                    format: 'date-time'
+                    example: '2023-10-01T12:00:00.000Z'
+          success:
+            type: 'boolean'
+            example: true
     404:
       description: 'Sale not found'
       schema:

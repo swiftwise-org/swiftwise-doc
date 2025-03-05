@@ -1,9 +1,9 @@
 post:
   tags:
-  - 'category'
-  summary: 'Create a new category'
-  description: 'Adds a new category to the system.'
-  operationId: 'createCategory'
+  - 'customer'
+  summary: 'Create a new customer'
+  description: 'Registers a new customer in the system.'
+  operationId: 'createCustomer'
   consumes:
   - 'application/json'
   produces:
@@ -11,36 +11,35 @@ post:
   parameters:
   - in: 'body'
     name: 'body'
-    description: 'Category details to create a new category'
+    description: 'Customer details to create a new customer'
     required: true
     schema:
       type: 'object'
       required:
-      - category_id
-      - category_name
-      - category_description
-      - category_status
+      - customer_id
+      - first_name
+      - last_name
+      - email
+      - phone_number
       properties:
-        category_id:
+        customer_id:
           type: 'string'
-          example: 'cat_wearable'
-        category_name:
+          example: 'cust_12345'
+        first_name:
           type: 'string'
-          example: 'Wearables'
-        category_description:
+          example: 'John'
+        last_name:
           type: 'string'
-          example: 'Products related to wearable technology.'
-        parent_category_id:
+          example: 'Doe'
+        email:
           type: 'string'
-          nullable: true
-          example: null
-        category_status:
+          example: 'johndoe@example.com'
+        phone_number:
           type: 'string'
-          enum: [ 'active', 'inactive' ]
-          example: 'active'
+          example: '+1234567890'
   responses:
     201:
-      description: 'Category created successfully'
+      description: 'Customer created successfully'
       schema:
         type: 'object'
         properties:
@@ -49,7 +48,7 @@ post:
             example: true
           message:
             type: 'string'
-            example: 'Category created successfully'
+            example: 'Customer created successfully'
     400:
       description: 'Invalid input'
       schema:
@@ -75,46 +74,45 @@ post:
 
 get:
   tags:
-  - 'category'
-  summary: 'Get a list of categories'
-  description: 'Retrieves a list of all categories in the system.'
-  operationId: 'getCategories'
+  - 'customer'
+  summary: 'Get a list of customers'
+  description: 'Retrieves a list of all registered customers.'
+  operationId: 'getCustomers'
   produces:
   - 'application/json'
   responses:
     200:
-      description: 'List of categories retrieved successfully'
+      description: 'List of customers retrieved successfully'
       schema:
         type: 'object'
         properties:
           data:
             type: 'object'
             properties:
-              categories:
+              customers:
                 type: 'array'
                 items:
                   type: 'object'
                   properties:
-                    category_id:
+                    customer_id:
                       type: 'string'
-                      example: 'cat_wearable'
-                    category_name:
+                      example: 'cust_12345'
+                    customer_name:
                       type: 'string'
-                      example: 'Wearables'
-                    category_description:
+                      example: 'John Doe'
+                    email:
                       type: 'string'
-                      example: 'Products related to wearable technology.'
-                    parent_category_id:
+                      example: 'johndoe@example.com'
+                    phone_number:
                       type: 'string'
-                      nullable: true
-                      example: null
-                    category_status:
+                      example: '+1234567890'
+                    address:
                       type: 'string'
-                      enum: [ 'active', 'inactive' ]
-                      example: 'active'
+                      example: '01, Bren Street'
           success:
             type: 'boolean'
             example: true
+
     500:
       description: 'Internal server error'
       schema:

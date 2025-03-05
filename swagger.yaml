@@ -45,24 +45,28 @@ paths:
     $ref: './paths/user/index.yaml'
   /product:
     $ref: './paths/product/index.yaml'
-  /product/{id}:
-    $ref: './paths/product/{id}.yaml'
+  /product/{product_id}:
+    $ref: './paths/product/{product_id}.yaml'
   /product/variants:
     $ref: './paths/product/variant.yaml'
   /category:
     $ref: './paths/category/index.yaml'
-  /category/{id}:
-    $ref: './paths/category/{id}.yaml'
+  /category/{category_id}:
+    $ref: './paths/category/{category_id}.yaml'
   /unit:
     $ref: './paths/unit/index.yaml'
-  /unit/{id}:
-    $ref: './paths/unit/{id}.yaml'
+  /unit/{unit_id}:
+    $ref: './paths/unit/{unit_id}.yaml'
   /sales:
     $ref: './paths/sales/index.yaml'
   /sales/{sale_id}:
     $ref: './paths/sales/{sale_id}.yaml'
   /sales/{sale_id}/items/{product_id}:
     $ref: './paths/sales/remove_item_from_sale.yaml'
+  /customers:
+    $ref: './paths/customers/index.yaml'
+  /customers/{customer_id}:
+    $ref: './paths/customers/{customer_id}.yaml'
 definitions:
   UserProfile:
     $ref: './definitions/UserProfile.yaml'

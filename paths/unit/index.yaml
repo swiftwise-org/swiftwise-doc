@@ -81,23 +81,32 @@ get:
     200:
       description: 'List of units retrieved successfully'
       schema:
-        type: 'array'
-        items:
-          type: 'object'
-          properties:
-            unit_id:
-              type: 'string'
-              example: 'unit_001'
-            unit_name:
-              type: 'string'
-              example: 'Kilogram'
-            unit_description:
-              type: 'string'
-              example: 'Unit of weight used for measuring products'
-            unit_status:
-              type: 'string'
-              enum: [ 'active', 'inactive' ]
-              example: 'active'
+        type: 'object'
+        properties:
+          data:
+            type: 'object'
+            properties:
+              units:
+                type: 'array'
+                items:
+                  type: 'object'
+                  properties:
+                    unit_id:
+                      type: 'string'
+                      example: 'unit_001'
+                    unit_name:
+                      type: 'string'
+                      example: 'Kilogram'
+                    unit_description:
+                      type: 'string'
+                      example: 'Unit of weight used for measuring products'
+                    unit_status:
+                      type: 'string'
+                      enum: [ 'active', 'inactive' ]
+                      example: 'active'
+          success:
+            type: 'boolean'
+            example: true
     500:
       description: 'Internal server error'
       schema:
