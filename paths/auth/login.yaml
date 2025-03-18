@@ -2,7 +2,7 @@ post:
   tags:
   - 'auth'
   summary: 'User login'
-  description: 'Authenticates a user and returns access, ID, and refresh tokens.'
+  description: 'Authenticates a user and returns access, refresh tokens, and user details.'
   operationId: 'loginUser'
   consumes:
   - 'application/json'
@@ -31,12 +31,54 @@ post:
       schema:
         type: 'object'
         properties:
-          token:
+          success:
+            type: 'boolean'
+            example: true
+          message:
             type: 'string'
-            example: 'eyJraWQiOiJ...'
-          refreshToken:
-            type: 'string'
-            example: 'eyJraWQiOiJ...'
+            example: 'Login successful.'
+          data:
+            type: 'object'
+            properties:
+              auth:
+                type: 'object'
+                properties:
+                  token:
+                    type: 'string'
+                    example: 'eyJraWQiOiJ...'
+                  refreshToken:
+                    type: 'string'
+                    example: 'eyJjdHkiOiJ...'
+                  user:
+                    type: 'object'
+                    properties:
+                      email:
+                        type: 'string'
+                        example: 'abdurroheemsherifdeen@gmail.com'
+                      email_verified:
+                        type: 'string'
+                        example: 'true'
+                      phone_number:
+                        type: 'string'
+                        example: '+2348139771122'
+                      phone_number_verified:
+                        type: 'string'
+                        example: 'false'
+                      preferred_username:
+                        type: 'string'
+                        example: 'simple'
+                      family_name:
+                        type: 'string'
+                        example: 'Abdur-roheem'
+                      given_name:
+                        type: 'string'
+                        example: 'Sherif-deen'
+                      gender:
+                        type: 'string'
+                        example: 'Male'
+                      sub:
+                        type: 'string'
+                        example: '18017360-3051-70b6-7071-b1ca6639d413'
     401:
       description: 'Unauthorized'
       schema:

@@ -2,7 +2,7 @@ post:
   tags:
   - 'auth'
   summary: 'Register a new user'
-  description: 'Creates a new user account in the SwiftWise system.'
+  description: 'Creates a new user account in the SwiftWise system. Sends a confirmation email.'
   operationId: 'registerUser'
   consumes:
   - 'application/json'
@@ -34,7 +34,7 @@ post:
           example: '+1234567890'
   responses:
     201:
-      description: 'User registered successfully'
+      description: 'User registered successfully. Confirmation email sent.'
       schema:
         type: 'object'
         properties:
@@ -43,7 +43,31 @@ post:
             example: true
           message:
             type: 'string'
-            example: 'User registered successfully'
+            example: 'User registered successfully. Confirm your email address to continue.'
+          data:
+            type: 'object'
+            properties:
+              user:
+                type: 'object'
+                properties:
+                  UserConfirmed:
+                    type: 'boolean'
+                    example: false
+                  CodeDeliveryDetails:
+                    type: 'object'
+                    properties:
+                      Destination:
+                        type: 'string'
+                        example: 's***@l***'
+                      DeliveryMedium:
+                        type: 'string'
+                        example: 'EMAIL'
+                      AttributeName:
+                        type: 'string'
+                        example: 'email'
+                  UserSub:
+                    type: 'string'
+                    example: '08a133f0-7091-7032-f0f4-dd62644efcc1'
     400:
       description: 'Invalid input'
       schema:
