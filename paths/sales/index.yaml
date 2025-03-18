@@ -25,6 +25,7 @@ post:
             required:
             - product_id
             - quantity_sold
+            - product_name
             properties:
               product_id:
                 type: 'string'
@@ -32,6 +33,9 @@ post:
               quantity_sold:
                 type: 'integer'
                 example: 2
+              product_name:
+                type: 'string'
+                example: 'prod123'
   responses:
     201:
       description: 'Sale created successfully'
@@ -88,45 +92,54 @@ get:
             type: 'object'
             properties:
               sales:
-                type: 'array'
-                items:
-                  type: 'object'
-                  properties:
-                    sale_id:
-                      type: 'string'
-                      example: 'sale123'
-                    owner_id:
-                      type: 'string'
-                      example: 'user123'
-                    product_id:
-                      type: 'string'
-                      example: 'prod123'
-                    quantity_sold:
-                      type: 'integer'
-                      example: 2
-                    product:
+                type: 'object'
+                properties:
+                  items:
+                    type: 'array'
+                    items:
                       type: 'object'
                       properties:
-                        product_id:
+                        sale_id:
                           type: 'string'
-                          example: 'prod123'
-                        product_name:
+                          example: 'sale123'
+                        owner_id:
                           type: 'string'
-                          example: 'T-Shirt'
-                        product_price:
-                          type: 'number'
-                          example: 25.99
-                        product_description:
+                          example: 'user123'
+                        customer_id:
                           type: 'string'
-                          example: 'A comfortable T-Shirt'
-                    created_at:
-                      type: 'string'
-                      format: 'date-time'
-                      example: '2023-10-01T12:00:00.000Z'
-                    updated_at:
-                      type: 'string'
-                      format: 'date-time'
-                      example: '2023-10-01T12:00:00.000Z'
+                          example: 'customer123 or null'
+                        total_amount:
+                          type: 'integer'
+                          example: 400
+                        total_items:
+                          type: 'integer'
+                          example: 2
+                        discount:
+                          type: 'integer'
+                          example: 8
+                        created_at:
+                          type: 'string'
+                          format: 'date-time'
+                          example: '2023-10-01T12:00:00.000Z'
+                        updated_at:
+                          type: 'string'
+                          format: 'date-time'
+                          example: '2023-10-01T12:00:00.000Z'
+                  total_items:
+                    type: 'integer'
+                    example: 1
+                  gross_sale:
+                    type: 'integer'
+                    example: 50
+                  net_sale:
+                    type: 'integer'
+                    example: 46
+                  today_revenue:
+                    type: 'integer'
+                    example: 46
+                  range:
+                    type: 'string'
+                    example: '1d'
           success:
             type: 'boolean'
             example: true

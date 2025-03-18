@@ -22,41 +22,63 @@ get:
               sale:
                 type: 'object'
                 properties:
-                  sale_id:
-                    type: 'string'
-                    example: 'sale123'
-                  owner_id:
-                    type: 'string'
-                    example: 'user123'
-                  product_id:
-                    type: 'string'
-                    example: 'prod123'
-                  quantity_sold:
+                  items:
+                    type: 'array'
+                    items:
+                      type: 'object'
+                      properties:
+                        sale_id:
+                          type: 'string'
+                          example: 'sale123'
+                        owner_id:
+                          type: 'string'
+                          example: 'user123'
+                        product_id:
+                          type: 'string'
+                          example: 'prod123'
+                        quantity_sold:
+                          type: 'integer'
+                          example: 2
+                        product:
+                          type: 'object'
+                          properties:
+                            product_id:
+                              type: 'string'
+                              example: 'prod123'
+                            product_name:
+                              type: 'string'
+                              example: 'T-Shirt'
+                            product_price:
+                              type: 'number'
+                              example: 25.99
+                            product_description:
+                              type: 'string'
+                              example: 'A comfortable T-Shirt'
+                        created_at:
+                          type: 'string'
+                          format: 'date-time'
+                          example: '2023-10-01T12:00:00.000Z'
+                        updated_at:
+                          type: 'string'
+                          format: 'date-time'
+                          example: '2023-10-01T12:00:00.000Z'
+                  total_items:
                     type: 'integer'
-                    example: 2
-                  product:
-                    type: 'object'
-                    properties:
-                      product_id:
-                        type: 'string'
-                        example: 'prod123'
-                      product_name:
-                        type: 'string'
-                        example: 'T-Shirt'
-                      product_price:
-                        type: 'number'
-                        example: 25.99
-                      product_description:
-                        type: 'string'
-                        example: 'A comfortable T-Shirt'
+                    example: 1
+                  customer_id:
+                    type: 'string'
+                    example: 'cust123 or null'
+                  total_amount:
+                    type: 'integer'
+                    example: 46
+                  discount:
+                    type: 'integer'
+                    example: 3
                   created_at:
                     type: 'string'
                     format: 'date-time'
                     example: '2023-10-01T12:00:00.000Z'
-                  updated_at:
-                    type: 'string'
-                    format: 'date-time'
-                    example: '2023-10-01T12:00:00.000Z'
+
           success:
             type: 'boolean'
             example: true
@@ -127,6 +149,9 @@ patch:
           message:
             type: 'string'
             example: 'Sale updated successfully'
+          sale_id:
+            type: 'string'
+            example: 'sale123'
     400:
       description: 'Invalid input'
       schema:
