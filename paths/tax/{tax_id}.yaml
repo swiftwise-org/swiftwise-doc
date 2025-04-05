@@ -1,45 +1,47 @@
 get:
   tags:
-  - 'unit'
-  summary: 'Get a unit by ID'
-  description: 'Retrieves a single unit’s details by its ID.'
-  operationId: 'getUnitById'
+  - 'tax'
+  summary: 'Get a tax by ID'
+  description: 'Retrieves a single tax’s details by its ID.'
+  operationId: 'getTaxById'
   parameters:
   - in: 'path'
     name: 'id'
-    description: 'ID of the unit to retrieve'
+    description: 'ID of the tax to retrieve'
     required: true
     type: 'string'
   responses:
     200:
-      description: 'Unit details retrieved successfully'
+      description: 'Tax details retrieved successfully'
       schema:
         type: 'object'
         properties:
           data:
             type: 'object'
             properties:
-              unit:
+              tax:
                 type: 'object'
                 properties:
-                  unit_id:
+                  tax_id:
                     type: 'string'
-                    example: 'unit_001'
-                  unit_name:
+                    example: 'cat_wearable'
+                  tax_name:
                     type: 'string'
-                    example: 'Kilogram'
-                  unit_description:
+                    example: 'Wearables'
+                  tax_description:
                     type: 'string'
-                    example: 'Unit of weight used for measuring products'
-                  unit_status:
-                    type: 'string'
-                    enum: [ 'active', 'inactive' ]
-                    example: 'active'
+                    example: 'Products related to wearable technology.'
+                  tax_rate:
+                    type: number
+                    example: 10
+                  owner_id:
+                    type: string
+                    example: 'owner123'
           success:
             type: 'boolean'
             example: true
     404:
-      description: 'Unit not found'
+      description: 'Tax not found'
       schema:
         type: 'object'
         properties:
@@ -48,7 +50,7 @@ get:
             example: false
           message:
             type: 'string'
-            example: 'Unit not found'
+            example: 'Tax not found'
     500:
       description: 'Internal server error'
       schema:
@@ -63,10 +65,10 @@ get:
 
 put:
   tags:
-  - 'unit'
-  summary: 'Update an existing unit'
-  description: 'Allows modification of an existing unit’s details.'
-  operationId: 'updateUnit'
+  - 'tax'
+  summary: 'Update an existing tax'
+  description: 'Allows modification of an existing tax’s details.'
+  operationId: 'updateTax'
   consumes:
   - 'application/json'
   produces:
@@ -74,33 +76,36 @@ put:
   parameters:
   - in: 'path'
     name: 'id'
-    description: 'ID of the unit to update'
+    description: 'ID of the tax to update'
     required: true
     type: 'string'
-  requestBody:
+  - in: 'body'
+    name: 'body'
+    description: 'Updated tax details'
     required: true
-    content:
-      application/json:
-        schema:
-          type: 'object'
-          required:
-          - unit_name
-          - unit_description
-          - unit_status
-          properties:
-            unit_name:
-              type: 'string'
-              example: 'Kilogram'
-            unit_description:
-              type: 'string'
-              example: 'Unit of weight used for measuring products'
-            unit_status:
-              type: 'string'
-              enum: [ 'active', 'inactive' ]
-              example: 'active'
+    schema:
+      type: 'object'
+      required:
+      - tax_id
+      - tax_name
+      - tax_rate
+      - tax_description
+      properties:
+        tax_id:
+          type: 'string'
+          example: 'cat_wearable'
+        tax_name:
+          type: 'string'
+          example: 'Wearables'
+        tax_description:
+          type: 'string'
+          example: 'Products related to wearable technology.'
+        tax_rate:
+          type: number
+          example: 10
   responses:
     200:
-      description: 'Unit updated successfully'
+      description: 'Tax updated successfully'
       schema:
         type: 'object'
         properties:
@@ -109,7 +114,7 @@ put:
             example: true
           message:
             type: 'string'
-            example: 'Unit updated successfully'
+            example: 'Tax updated successfully'
     400:
       description: 'Invalid input'
       schema:
@@ -122,7 +127,7 @@ put:
             type: 'string'
             example: 'Invalid input provided'
     404:
-      description: 'Unit not found'
+      description: 'Tax not found'
       schema:
         type: 'object'
         properties:
@@ -131,7 +136,7 @@ put:
             example: false
           message:
             type: 'string'
-            example: 'Unit not found'
+            example: 'Tax not found'
     500:
       description: 'Internal server error'
       schema:
@@ -146,19 +151,19 @@ put:
 
 delete:
   tags:
-  - 'unit'
-  summary: 'Delete a unit'
-  description: 'Deletes a unit from the system.'
-  operationId: 'deleteUnit'
+  - 'tax'
+  summary: 'Delete a tax'
+  description: 'Deletes a tax from the system.'
+  operationId: 'deleteTax'
   parameters:
   - in: 'path'
     name: 'id'
-    description: 'ID of the unit to delete'
+    description: 'ID of the tax to delete'
     required: true
     type: 'string'
   responses:
     200:
-      description: 'Unit deleted successfully'
+      description: 'Tax deleted successfully'
       schema:
         type: 'object'
         properties:
@@ -167,9 +172,9 @@ delete:
             example: true
           message:
             type: 'string'
-            example: 'Unit deleted successfully'
+            example: 'Tax deleted successfully'
     404:
-      description: 'Unit not found'
+      description: 'Tax not found'
       schema:
         type: 'object'
         properties:
@@ -178,7 +183,7 @@ delete:
             example: false
           message:
             type: 'string'
-            example: 'Unit not found'
+            example: 'Tax not found'
     500:
       description: 'Internal server error'
       schema:

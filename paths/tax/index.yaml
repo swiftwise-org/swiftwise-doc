@@ -1,9 +1,9 @@
 post:
   tags:
-  - 'unit'
-  summary: 'Create a new unit'
-  description: 'Adds a new unit to the system.'
-  operationId: 'createUnit'
+  - 'tax'
+  summary: 'Create a new tax'
+  description: 'Adds a new tax to the system.'
+  operationId: 'createTax'
   consumes:
   - 'application/json'
   produces:
@@ -11,28 +11,27 @@ post:
   parameters:
   - in: 'body'
     name: 'body'
-    description: 'Unit details to create a new unit'
+    description: 'Tax details to create a new tax'
     required: true
     schema:
       type: 'object'
       required:
-      - unit_name
-      - unit_description
-      - unit_status
+      - tax_name
+      - tax_description
+      - tax_rate
       properties:
-        unit_name:
+        tax_name:
           type: 'string'
-          example: 'Kilogram'
-        unit_description:
+          example: 'Wearables'
+        tax_description:
           type: 'string'
-          example: 'Unit of weight used for measuring products'
-        unit_status:
-          type: 'string'
-          enum: [ 'active', 'inactive' ]
-          example: 'active'
+          example: 'Products related to wearable technology.'
+        tax_rate:
+          type: number
+          example: 10
   responses:
     201:
-      description: 'Unit created successfully'
+      description: 'Tax created successfully'
       schema:
         type: 'object'
         properties:
@@ -41,7 +40,7 @@ post:
             example: true
           message:
             type: 'string'
-            example: 'Unit created successfully'
+            example: 'Tax created successfully'
     400:
       description: 'Invalid input'
       schema:
@@ -67,39 +66,41 @@ post:
 
 get:
   tags:
-  - 'unit'
-  summary: 'Get a list of units'
-  description: 'Retrieves a list of all units in the system.'
-  operationId: 'getUnits'
+  - 'tax'
+  summary: 'Get a list of categories'
+  description: 'Retrieves a list of all categories in the system.'
+  operationId: 'getCategories'
   produces:
   - 'application/json'
   responses:
     200:
-      description: 'List of units retrieved successfully'
+      description: 'List of categories retrieved successfully'
       schema:
         type: 'object'
         properties:
           data:
             type: 'object'
             properties:
-              units:
+              categories:
                 type: 'array'
                 items:
                   type: 'object'
                   properties:
-                    unit_id:
+                    tax_id:
                       type: 'string'
-                      example: 'unit_001'
-                    unit_name:
+                      example: 'cat_wearable'
+                    tax_name:
                       type: 'string'
-                      example: 'Kilogram'
-                    unit_description:
+                      example: 'Wearables'
+                    tax_description:
                       type: 'string'
-                      example: 'Unit of weight used for measuring products'
-                    unit_status:
+                      example: 'Products related to wearable technology.'
+                    tax_rate:
+                      type: number
+                      example: 10
+                    owner_id:
                       type: 'string'
-                      enum: [ 'active', 'inactive' ]
-                      example: 'active'
+                      example: 'owner123'
           success:
             type: 'boolean'
             example: true

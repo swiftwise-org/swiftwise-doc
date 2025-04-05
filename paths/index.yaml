@@ -26,5 +26,9 @@
   $ref: './unit/index.yaml'
 /unit/{id}:
   $ref: './unit/{id}.yaml'
+/tax:
+  $ref: './tax/index.yaml'
+/tax/{id}:
+  $ref: './tax/{id}.yaml'
 /sales:
   $ref: './sales/index.yaml'

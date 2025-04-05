@@ -1,6 +1,6 @@
 get:
   tags:
-  - 'customer'
+  - 'customers'
   summary: 'Get a customer by ID'
   description: 'Retrieves a single customer’s details by their ID.'
   operationId: 'getCustomerById'

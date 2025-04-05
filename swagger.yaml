@@ -20,10 +20,16 @@ tags:
   description: 'Endpoints for managing products in the inventory system'
 - name: 'category'
   description: 'Endpoints for managing product categories'
+- name: 'tax'
+  description: 'Endpoints for managing product taxes'
 - name: 'unit'
   description: 'Endpoints for managing units of measurement for products'
 - name: 'sales'
   description: 'Endpoints for managing sales and sales items'
+- name: 'customers'
+  description: 'Endpoints for managing customers'
+- name: 'invoice'
+  description: 'Endpoints for managing invoice'
 schemes:
 - 'https'
 paths:
@@ -57,6 +63,10 @@ paths:
     $ref: './paths/unit/index.yaml'
   /unit/{unit_id}:
     $ref: './paths/unit/{unit_id}.yaml'
+  /tax:
+    $ref: './paths/tax/index.yaml'
+  /tax/{tax_id}:
+    $ref: './paths/tax/{tax_id}.yaml'
   /sales:
     $ref: './paths/sales/index.yaml'
   /sales/{sale_id}:
@@ -67,6 +77,10 @@ paths:
     $ref: './paths/customers/index.yaml'
   /customers/{customer_id}:
     $ref: './paths/customers/{customer_id}.yaml'
+  /invoice:
+    $ref: './paths/invoice/index.yaml'
+  /invoice/{invoice_id}:
+    $ref: './paths/invoice/{invoice_id}.yaml'
 definitions:
   UserProfile:
     $ref: './definitions/UserProfile.yaml'

@@ -1,0 +1,239 @@
+get:
+  tags:
+  - 'invoice'
+  summary: 'Get a invoice by ID'
+  description: 'Retrieves a single invoice’s details by their ID.'
+  operationId: 'getInvoiceById'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the invoice to retrieve'
+    required: true
+    type: 'string'
+  responses:
+    200:
+      description: 'Invoice details retrieved successfully'
+      schema:
+        type: 'object'
+        properties:
+          data:
+            type: 'object'
+            properties:
+              invoice:
+                type: 'object'
+                properties:
+                  invoice_id:
+                    type: 'string'
+                    example: 'inv_12345'
+                  customer:
+                    type: 'object'
+                    properties:
+                      customer_id:
+                        type: 'string'
+                        example: 'cus_12345'
+                      customer_name:
+                        type: 'string'
+                        example: 'cus_12345'
+                  products:
+                    type: 'array'
+                    items:
+                      type: 'object'
+                      properties:
+                        product_id:
+                          type: 'string'
+                          example: 'prod_12345'
+                        product_name:
+                          type: 'string'
+                          example: 'Goog Watch'
+
+          success:
+            type: 'boolean'
+            example: true
+
+    404:
+      description: 'Invoice not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invoice not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+
+put:
+  tags:
+  - 'invoice'
+  summary: 'Update an invoice by ID'
+  description: 'Updates a single invoice’s details by their ID.'
+  operationId: 'updateInvoiceById'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the invoice to update'
+    required: true
+    schema:
+      type: 'string'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: 'object'
+          properties:
+            customer_id:
+              type: 'string'
+              example: 'cus_12345'
+            products:
+              type: 'array'
+              items:
+                type: 'object'
+                properties:
+                  product_id:
+                    type: 'string'
+                    example: 'prod_12345'
+  responses:
+    200:
+      description: 'Invoice updated successfully'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: true
+              data:
+                type: 'object'
+                properties:
+                  invoice:
+                    type: 'object'
+                    properties:
+                      invoice_id:
+                        type: 'string'
+                        example: 'inv_12345'
+                      customer:
+                        type: 'object'
+                        properties:
+                          customer_id:
+                            type: 'string'
+                            example: 'cus_12345'
+                          customer_name:
+                            type: 'string'
+                            example: 'cus_12345'
+                      products:
+                        type: 'array'
+                        items:
+                          type: 'object'
+                          properties:
+                            product_id:
+                              type: 'string'
+                              example: 'prod_12345'
+                            product_name:
+                              type: 'string'
+                              example: 'Goog Watch'
+    400:
+      description: 'Bad request'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid request body'
+    404:
+      description: 'Invoice not found'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invoice not found'
+    500:
+      description: 'Internal server error'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
+
+delete:
+  tags:
+  - 'invoice'
+  summary: 'Delete an invoice by ID'
+  description: 'Deletes a single invoice by its ID.'
+  operationId: 'deleteInvoiceById'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the invoice to delete'
+    required: true
+    schema:
+      type: 'string'
+  responses:
+    200:
+      description: 'Invoice deleted successfully'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: true
+              message:
+                type: 'string'
+                example: 'Invoice deleted successfully'
+    404:
+      description: 'Invoice not found'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invoice not found'
+    500:
+      description: 'Internal server error'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'

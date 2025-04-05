@@ -1,6 +1,6 @@
 post:
   tags:
-  - 'customer'
+  - 'customers'
   summary: 'Create a new customer'
   description: 'Registers a new customer in the system.'
   operationId: 'createCustomer'
@@ -16,15 +16,11 @@ post:
     schema:
       type: 'object'
       required:
-      - customer_id
       - first_name
       - last_name
       - email
       - phone_number
       properties:
-        customer_id:
-          type: 'string'
-          example: 'cust_12345'
         first_name:
           type: 'string'
           example: 'John'
@@ -74,7 +70,7 @@ post:
 
 get:
   tags:
-  - 'customer'
+  - 'customers'
   summary: 'Get a list of customers'
   description: 'Retrieves a list of all registered customers.'
   operationId: 'getCustomers'

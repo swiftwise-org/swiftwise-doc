@@ -1,9 +1,9 @@
 post:
   tags:
-  - 'unit'
-  summary: 'Create a new unit'
-  description: 'Adds a new unit to the system.'
-  operationId: 'createUnit'
+  - 'invoice'
+  summary: 'Create a new invoice'
+  description: 'Registers a new invoice in the system.'
+  operationId: 'createInvoice'
   consumes:
   - 'application/json'
   produces:
@@ -11,28 +11,23 @@ post:
   parameters:
   - in: 'body'
     name: 'body'
-    description: 'Unit details to create a new unit'
+    description: 'Invoice details to create a new invoice'
     required: true
     schema:
       type: 'object'
       required:
-      - unit_name
-      - unit_description
-      - unit_status
+      - invoice_amount
+      - due_date
       properties:
-        unit_name:
+        invoice_amount:
+          type: 'number'
+          example: 1000
+        due_date:
           type: 'string'
-          example: 'Kilogram'
-        unit_description:
-          type: 'string'
-          example: 'Unit of weight used for measuring products'
-        unit_status:
-          type: 'string'
-          enum: [ 'active', 'inactive' ]
-          example: 'active'
+          example: '2024-01-01'
   responses:
     201:
-      description: 'Unit created successfully'
+      description: 'Invoice created successfully'
       schema:
         type: 'object'
         properties:
@@ -41,7 +36,7 @@ post:
             example: true
           message:
             type: 'string'
-            example: 'Unit created successfully'
+            example: 'Invoice created successfully'
     400:
       description: 'Invalid input'
       schema:
@@ -67,42 +62,53 @@ post:
 
 get:
   tags:
-  - 'unit'
-  summary: 'Get a list of units'
-  description: 'Retrieves a list of all units in the system.'
-  operationId: 'getUnits'
+  - 'invoice'
+  summary: 'Get a list of invoices'
+  description: 'Retrieves a list of all registered invoices.'
+  operationId: 'getInvoices'
   produces:
   - 'application/json'
   responses:
     200:
-      description: 'List of units retrieved successfully'
+      description: 'List of invoices retrieved successfully'
       schema:
         type: 'object'
         properties:
           data:
             type: 'object'
             properties:
-              units:
+              invoices:
                 type: 'array'
                 items:
                   type: 'object'
                   properties:
-                    unit_id:
+                    invoice_id:
                       type: 'string'
-                      example: 'unit_001'
-                    unit_name:
-                      type: 'string'
-                      example: 'Kilogram'
-                    unit_description:
-                      type: 'string'
-                      example: 'Unit of weight used for measuring products'
-                    unit_status:
-                      type: 'string'
-                      enum: [ 'active', 'inactive' ]
-                      example: 'active'
+                      example: 'inv_12345'
+                    customer:
+                      type: 'object'
+                      properties:
+                        customer_id:
+                          type: 'string'
+                          example: 'cus_12345'
+                        customer_name:
+                          type: 'string'
+                          example: 'cus_12345'
+                    products:
+                      type: 'array'
+                      items:
+                        type: 'object'
+                        properties:
+                          product_id:
+                            type: 'string'
+                            example: 'prod_12345'
+                          product_name:
+                            type: 'string'
+                            example: 'Goog Watch'
           success:
             type: 'boolean'
             example: true
+
     500:
       description: 'Internal server error'
       schema:
