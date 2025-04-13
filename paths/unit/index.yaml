@@ -18,7 +18,6 @@ post:
       required:
       - unit_name
       - unit_description
-      - unit_status
       properties:
         unit_name:
           type: 'string'
@@ -26,10 +25,9 @@ post:
         unit_description:
           type: 'string'
           example: 'Unit of weight used for measuring products'
-        unit_status:
+        abbreviation:
           type: 'string'
-          enum: [ 'active', 'inactive' ]
-          example: 'active'
+          example: 'kg'
   responses:
     201:
       description: 'Unit created successfully'

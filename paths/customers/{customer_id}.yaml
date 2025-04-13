@@ -63,3 +63,160 @@ get:
           message:
             type: 'string'
             example: 'Internal server error occurred'
+
+put:
+  tags:
+  - 'customers'
+  summary: 'Update a customer by ID'
+  description: 'Updates a single customer’s details by their ID.'
+  operationId: 'updateCustomerById'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the customer to update'
+    required: true
+    schema:
+      type: 'string'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: 'object'
+          properties:
+            customer_name:
+              type: 'string'
+              example: 'Jane Doe'
+            email:
+              type: 'string'
+              example: 'janedoe@example.com'
+            phone_number:
+              type: 'string'
+              example: '+1987654321'
+            address:
+              type: 'string'
+              example: '02, Bren Street'
+  responses:
+    200:
+      description: 'Customer updated successfully'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: true
+              data:
+                type: 'object'
+                properties:
+                  customer:
+                    type: 'object'
+                    properties:
+                      customer_id:
+                        type: 'string'
+                        example: 'cust_12345'
+                      customer_name:
+                        type: 'string'
+                        example: 'Jane Doe'
+                      email:
+                        type: 'string'
+                        example: 'janedoe@example.com'
+                      phone_number:
+                        type: 'string'
+                        example: '+1987654321'
+                      address:
+                        type: 'string'
+                        example: '02, Bren Street'
+    400:
+      description: 'Bad request'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Invalid request body'
+    404:
+      description: 'Customer not found'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Customer not found'
+    500:
+      description: 'Internal server error'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
+delete:
+  tags:
+  - 'customers'
+  summary: 'Delete a customer by ID'
+  description: 'Deletes a single customer by its ID.'
+  operationId: 'deleteCustomerById'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the customer to delete'
+    required: true
+    schema:
+      type: 'string'
+  responses:
+    200:
+      description: 'Customer deleted successfully'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: true
+              message:
+                type: 'string'
+                example: 'Customer deleted successfully'
+    404:
+      description: 'Customer not found'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Customer not found'
+    500:
+      description: 'Internal server error'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            properties:
+              success:
+                type: 'boolean'
+                example: false
+              message:
+                type: 'string'
+                example: 'Internal server error occurred'
