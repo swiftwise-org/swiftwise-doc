@@ -10,8 +10,42 @@ post:
   - 'application/json'
   parameters:
   - in: 'body'
-    name: 'body'
+    name: 'Required body'
     description: 'Product details to create a new product'
+    required: true
+    schema:
+      type: object
+      required:
+      - product_name
+      - product_quantity
+      - product_main_price
+      - product_purchase_cost
+      - product_available
+      - category_id
+      properties:
+        product_name:
+          type: string
+          example: 'Smartwatch Pro'
+        product_quantity:
+          type: integer
+          example: 30
+        product_available:
+          type: integer
+          example: 28
+        product_main_price:
+          type: number
+          format: float
+          example: 199.99
+        product_purchase_cost:
+          type: number
+          format: float
+          example: 120
+        category_id:
+          type: string
+          example: 'cat_wearable'
+  - in: 'body'
+    name: 'Not required body'
+    description: 'Additional details to create a new product'
     required: true
     schema:
       $ref: '#/components/schemas/ProductInput'
@@ -220,30 +254,7 @@ components:
           example: "18017360-3051-70b6-7071-b1ca6639d413"
     ProductInput:
       type: object
-      required:
-      - product_name
-      - product_quantity
-      - product_main_price
-      - product_purchase_cost
-      - category_id
       properties:
-        product_name:
-          type: string
-          example: 'Smartwatch Pro'
-        product_quantity:
-          type: integer
-          example: 30
-        product_main_price:
-          type: number
-          format: float
-          example: 199.99
-        product_purchase_cost:
-          type: number
-          format: float
-          example: 120
-        category_id:
-          type: string
-          example: 'cat_wearable'
         product_description:
           type: string
           example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
@@ -262,9 +273,6 @@ components:
         product_barcode:
           type: string
           example: '9876543210987'
-        product_available:
-          type: integer
-          example: 28
         unit_id:
           type: string
           example: 'unit_002'

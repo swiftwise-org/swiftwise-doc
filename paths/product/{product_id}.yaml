@@ -65,23 +65,8 @@ put:
   - in: 'body'
     name: 'body'
     description: 'Updated product details'
-    required: true
     schema:
       type: 'object'
-      required:
-      - product_name
-      - product_description
-      - product_main_price
-      - product_quantity
-      - category_id
-      - unit_id
-      - product_status
-      - track_inventory
-      - product_slug
-      - product_barcode
-      - product_purchase_cost
-      - product_available
-      - variant_id
       properties:
         product_main_price:
           type: 'number'
@@ -102,22 +87,6 @@ put:
           example: 'Smartwatch Pro'
         track_inventory:
           type: 'boolean'
-          example: true
-        product_slug:
-          type: 'string'
-          example: 'smartwatch-pro'
-        other:
-          type: 'object'
-          properties:
-            color:
-              type: 'string'
-              example: 'silver'
-            water_resistant:
-              type: 'string'
-              example: 'Yes'
-            brand:
-              type: 'string'
-              example: 'WearTech'
         cover_url:
           type: 'string'
           example: 'https://example.com/images/smartwatch.jpg'
@@ -137,9 +106,6 @@ put:
         product_description:
           type: 'string'
           example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
-        variant_id:
-          type: 'string'
-          example: 'var_002'
   responses:
     200:
       description: 'Product updated successfully'
