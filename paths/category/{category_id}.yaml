@@ -80,7 +80,7 @@ put:
   - in: 'body'
     name: 'body'
     description: 'Updated category details'
-    required: true
+    required: false
     schema:
       type: 'object'
       required:

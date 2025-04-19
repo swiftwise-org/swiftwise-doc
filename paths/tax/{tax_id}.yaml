@@ -82,18 +82,10 @@ put:
   - in: 'body'
     name: 'body'
     description: 'Updated tax details'
-    required: true
+    required: false
     schema:
       type: 'object'
-      required:
-      - tax_id
-      - tax_name
-      - tax_rate
-      - tax_description
       properties:
-        tax_id:
-          type: 'string'
-          example: 'cat_wearable'
         tax_name:
           type: 'string'
           example: 'Wearables'

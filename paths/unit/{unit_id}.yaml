@@ -77,27 +77,22 @@ put:
     description: 'ID of the unit to update'
     required: true
     type: 'string'
-  requestBody:
-    required: true
-    content:
-      application/json:
-        schema:
-          type: 'object'
-          required:
-          - unit_name
-          - unit_description
-          - unit_status
-          properties:
-            unit_name:
-              type: 'string'
-              example: 'Kilogram'
-            unit_description:
-              type: 'string'
-              example: 'Unit of weight used for measuring products'
-            unit_status:
-              type: 'string'
-              enum: [ 'active', 'inactive' ]
-              example: 'active'
+  - in: 'body'
+    name: 'body'
+    description: 'Updated unit details'
+    required: false
+    schema:
+      type: 'object'
+      properties:
+        unit_name:
+          type: 'string'
+          example: 'Kilogram'
+        unit_description:
+          type: 'string'
+          example: 'Unit of weight used for measuring products'
+        abbreviation:
+          type: 'string'
+          example: 'kg'
   responses:
     200:
       description: 'Unit updated successfully'

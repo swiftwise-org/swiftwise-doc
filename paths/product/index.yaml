@@ -46,7 +46,7 @@ post:
   - in: 'body'
     name: 'Not required body'
     description: 'Additional details to create a new product'
-    required: true
+    required: false
     schema:
       $ref: '#/components/schemas/ProductInput'
   responses:

@@ -140,6 +140,15 @@ get:
                   range:
                     type: 'string'
                     example: '1d'
+          pagination:
+            type: 'object'
+            properties:
+              nextKey:
+                type: 'string'
+                example: 'eyJwcm9kdWN0X2lkIjoiMTIzIn0='
+              limit:
+                type: 'integer'
+                example: 100
           success:
             type: 'boolean'
             example: true

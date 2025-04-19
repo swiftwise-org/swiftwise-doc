@@ -16,15 +16,19 @@ post:
     schema:
       type: 'object'
       required:
-      - invoice_amount
-      - due_date
+      - amount
+      - status
+      - customer_id
       properties:
-        invoice_amount:
+        amount:
           type: 'number'
           example: 1000
-        due_date:
+        status:
           type: 'string'
-          example: '2024-01-01'
+          example: 'unpaid'
+        customer_id:
+          type: 'string'
+          example: 'cus_12345'
   responses:
     201:
       description: 'Invoice created successfully'
