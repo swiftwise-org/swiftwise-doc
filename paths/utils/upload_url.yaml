@@ -10,7 +10,7 @@ get:
     - After uploading the file, use the `cover_url` (S3 object key) for associating the uploaded file with the product or entity.
     Example of uploading the file:
     ```js
-    const res = await axios.get('/api/utils/upload-url', {
+    const res = await axios.get('/api/utils/upload_url', {
       params: { fileType: file.type, type: 'product' },
     });
 
