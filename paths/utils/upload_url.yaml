@@ -1,0 +1,87 @@
+get:
+  tags:
+  - 'utils'
+  summary: 'Get pre-signed URL for file upload'
+  description: |
+    This endpoint generates a pre-signed URL to directly upload files to S3.
+    **Important for Frontend:**
+    - Use the pre-signed URL in a PUT request to upload the file directly to S3.
+    - The file should be sent as raw binary data, **NOT** as `FormData`.
+    - After uploading the file, use the `cover_url` (S3 object key) for associating the uploaded file with the product or entity.
+    Example of uploading the file:
+    ```js
+    const res = await axios.get('/api/utils/upload-url', {
+      params: { fileType: file.type, type: 'product' },
+    });
+
+    await axios.put(res.data.upload_url, file, {
+      headers: { 'Content-Type': file.type },
+    });
+
+    await axios.post('/api/product', {
+      name: 'Product Name',
+      price: 99.99,
+      cover_url: res.data.cover_url,  // S3 object key for the uploaded image
+    });
+    ```
+  operationId: 'getPresignedUploadUrl'
+  parameters:
+  - in: 'query'
+    name: 'fileType'
+    description: 'MIME type of the file to upload (e.g., image/jpeg, image/png)'
+    required: true
+    type: 'string'
+    example: 'image/jpeg'
+  - in: 'query'
+    name: 'type'
+    description: 'focus type of the file to upload (e.g., product, user, sales etc)'
+    required: true
+    type: 'string'
+    example: 'product'
+  responses:
+    200:
+      description: 'Pre-signed URL generated successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          data:
+            type: 'object'
+            properties:
+              upload_url:
+                type: 'string'
+                description: 'Pre-signed URL for direct upload'
+                example: 'https://bucket.s3.amazonaws.com/products/123/abc.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&...'
+              cover_url:
+                type: 'string'
+                description: 'S3 object key for reference. Send this back with product as cover_url'
+                example: 'products/123/abc.jpg'
+              expiresIn:
+                type: 'string'
+                description: 'When the URL expires'
+                example: '5min'
+
+    400:
+      description: 'Invalid file type'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid file type. Only image/jpeg, image/png are allowed'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Failed to generate upload URL'

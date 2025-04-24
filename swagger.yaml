@@ -81,6 +81,8 @@ paths:
     $ref: './paths/invoice/index.yaml'
   /invoice/{invoice_id}:
     $ref: './paths/invoice/{invoice_id}.yaml'
+  /utils/upload_url:
+    $ref: './paths/utils/upload_url.yaml'
 definitions:
   UserProfile:
     $ref: './definitions/UserProfile.yaml'
