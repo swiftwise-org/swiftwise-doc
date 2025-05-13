@@ -1,0 +1,57 @@
+post:
+  tags:
+  - 'sales'
+  summary: 'Add a quick sale'
+  description: 'Adds a new quick sale to sales.'
+  operationId: 'createQuickSale'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'body'
+    name: 'body'
+    description: 'Details to create a new Quick Sale'
+    required: true
+    schema:
+      type: 'object'
+      required:
+      - amount
+      properties:
+        amount:
+          type: 'number'
+          example: 1000
+  responses:
+    201:
+      description: 'Quick Sale created successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Quick Sale created successfully'
+    400:
+      description: 'Invalid input'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid input provided'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

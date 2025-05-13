@@ -1,0 +1,199 @@
+post:
+  tags:
+  - 'orders'
+  summary: 'Create a new order'
+  description: 'Creates a new order with the provided items.'
+  operationId: 'createOrder'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'body'
+    name: 'body'
+    description: 'Order details to create a new order'
+    required: true
+    schema:
+      type: 'object'
+      required:
+      - items
+      - online_customer
+      - store_id
+      properties:
+        items:
+          type: 'array'
+          items:
+            type: 'object'
+            required:
+            - product_id
+            - quantity_sold
+            - product_name
+            properties:
+              product_id:
+                type: 'string'
+                example: 'prod123'
+              quantity_sold:
+                type: 'integer'
+                example: 2
+              product_name:
+                type: 'string'
+                example: 'prod123'
+        online_customer:
+          type: 'object'
+          required:
+          - id
+          - given_name
+          - family_name
+          - email
+          - phone_number
+          properties:
+            id:
+              type: 'string'
+              example: 'user_12345'
+            given_name:
+              type: 'string'
+              example: 'John'
+            family_name:
+              type: 'string'
+              example: 'Doe'
+            email:
+              type: 'string'
+              example: 'john.doe@example.com'
+            phone_number:
+              type: 'string'
+              example: '+23411111111'
+        store_id:
+          type: 'string'
+          require:
+          - store_id
+          properties:
+            stor_id:
+              type: 'string'
+              example: 'store_1234'
+  responses:
+    201:
+      description: 'Order created successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Order created successfully'
+          order_id:
+            type: 'string'
+            example: 'order123'
+    400:
+      description: 'Invalid input'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid input provided'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+
+get:
+  tags:
+  - 'orders'
+  summary: 'Get all orders'
+  description: 'Retrieves a list of all orders in the system.'
+  operationId: 'getAllOrders'
+  produces:
+  - 'application/json'
+  responses:
+    200:
+      description: 'List of orders retrieved successfully'
+      schema:
+        type: 'object'
+        properties:
+          data:
+            type: 'object'
+            properties:
+              orders:
+                type: 'object'
+                properties:
+                  items:
+                    type: 'array'
+                    items:
+                      type: 'object'
+                      properties:
+                        order_id:
+                          type: 'string'
+                          example: 'order123'
+                        owner_id:
+                          type: 'string'
+                          example: 'user123'
+                        customer_id:
+                          type: 'string'
+                          example: 'customer123 or null'
+                        total_amount:
+                          type: 'integer'
+                          example: 400
+                        total_items:
+                          type: 'integer'
+                          example: 2
+                        discount:
+                          type: 'integer'
+                          example: 8
+                        created_at:
+                          type: 'string'
+                          format: 'date-time'
+                          example: '2023-10-01T12:00:00.000Z'
+                        updated_at:
+                          type: 'string'
+                          format: 'date-time'
+                          example: '2023-10-01T12:00:00.000Z'
+                  total_items:
+                    type: 'integer'
+                    example: 1
+                  # gross_order:
+                  #   type: 'integer'
+                  #   example: 50
+                  # net_order:
+                  #   type: 'integer'
+                  #   example: 46
+                  # today_revenue:
+                  #   type: 'integer'
+                  #   example: 46
+                  range:
+                    type: 'string'
+                    example: '1d'
+          pagination:
+            type: 'object'
+            properties:
+              nextKey:
+                type: 'string'
+                example: 'eyJwcm9kdWN0X2lkIjoiMTIzIn0='
+              limit:
+                type: 'integer'
+                example: 100
+          success:
+            type: 'boolean'
+            example: true
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

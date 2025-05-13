@@ -73,6 +73,10 @@ paths:
     $ref: './paths/sales/{sale_id}.yaml'
   /sales/{sale_id}/items/{product_id}:
     $ref: './paths/sales/remove_item_from_sale.yaml'
+  /sales/quick_sale:
+    $ref: './paths/sales/quick_sale.yaml'
+  /sales/quick_sale/{sale_id}:
+    $ref: './paths/sales/update_quick_sale.yaml'
   /customers:
     $ref: './paths/customers/index.yaml'
   /customers/{customer_id}:
@@ -81,6 +85,10 @@ paths:
     $ref: './paths/invoice/index.yaml'
   /invoice/{invoice_id}:
     $ref: './paths/invoice/{invoice_id}.yaml'
+  /order:
+    $ref: './paths/order/index.yaml'
+  /order/{order_id}:
+    $ref: './paths/order/{order_id}.yaml'
   /utils/upload_url:
     $ref: './paths/utils/upload_url.yaml'
 definitions:

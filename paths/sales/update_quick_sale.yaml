@@ -1,0 +1,80 @@
+patch:
+  tags:
+  - 'sales'
+  summary: 'Update a quick sale'
+  description: 'Updates an existing quick sale'
+  operationId: 'updateQuickSale'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'path'
+    name: 'sale_id'
+    description: 'ID of the sale to update'
+    required: true
+    type: 'string'
+  - in: 'body'
+    name: 'body'
+    description: 'Sale details to update'
+    required: true
+    schema:
+      type: 'object'
+      required:
+      - sale_id
+      - amount
+      properties:
+        sale_id:
+          type: 'string'
+          example: 'sale123'
+        amount:
+          type: 'integer'
+          example: 3000
+  responses:
+    200:
+      description: 'Quick Sale updated successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Quick Sale updated successfully'
+          sale_id:
+            type: 'string'
+            example: 'sale123'
+    400:
+      description: 'Invalid input'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid input provided'
+    404:
+      description: 'Sale not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Sale not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
