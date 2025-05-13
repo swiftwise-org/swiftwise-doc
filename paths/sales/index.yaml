@@ -82,6 +82,23 @@ get:
   operationId: 'getAllSales'
   produces:
   - 'application/json'
+  parameters:
+  - in: 'query'
+    name: 'searchTerm'
+    description: 'Search term to filter products by name or other attributes'
+    required: false
+    type: 'string'
+  - in: 'query'
+    name: 'limit'
+    description: 'Number of products to return per page'
+    required: false
+    type: 'integer'
+    example: 10
+  - in: 'query'
+    name: 'nextKey'
+    description: 'Pagination key for fetching the next set of results'
+    required: false
+    type: 'string'
   responses:
     200:
       description: 'List of sales retrieved successfully'
