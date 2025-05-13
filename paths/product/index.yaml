@@ -108,6 +108,11 @@ get:
     description: 'Pagination key for fetching the next set of results'
     required: false
     type: 'string'
+  - in: 'query'
+    name: 'category_id'
+    description: 'Fetching products by category'
+    required: false
+    type: 'string'
   responses:
     200:
       description: 'List of products retrieved successfully'

@@ -26,6 +26,7 @@ post:
             - product_id
             - quantity_sold
             - product_name
+            - price
             properties:
               product_id:
                 type: 'string'
@@ -36,6 +37,47 @@ post:
               product_name:
                 type: 'string'
                 example: 'prod123'
+              price:
+                type: 'number'
+                example: 1200
+  - in: 'body'
+    name: 'Not required body'
+    description: 'Additional Sale details to create a new sale'
+    required: false
+    schema:
+      type: 'object'
+      properties:
+        items:
+          type: 'array'
+          items:
+            type: 'object'
+            required:
+            - product_id
+            - quantity_sold
+            - product_name
+            - price
+            properties:
+              product_id:
+                type: 'string'
+                example: 'prod123'
+              quantity_sold:
+                type: 'integer'
+                example: 2
+              product_name:
+                type: 'string'
+                example: 'prod123'
+              price:
+                type: 'number'
+                example: 12000
+        discount:
+          type: 'number'
+          example: 10
+        customer_id:
+          type: 'string'
+          example: 'cus_123'
+        payment_method:
+          type: 'string'
+          example: 'cash'
   responses:
     201:
       description: 'Sale created successfully'
