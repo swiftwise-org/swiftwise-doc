@@ -89,7 +89,7 @@ paths:
     $ref: './paths/order/index.yaml'
   /order/{order_id}:
     $ref: './paths/order/{order_id}.yaml'
-  /utils/upload_url:
+  /utils/upload-url:
     $ref: './paths/utils/upload_url.yaml'
 definitions:
   UserProfile:
