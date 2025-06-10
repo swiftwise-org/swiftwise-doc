@@ -29,6 +29,43 @@ post:
         customer_id:
           type: 'string'
           example: 'cus_12345'
+  - in: 'body'
+    name: 'Non required body'
+    description: 'Non required Invoice details to create a new invoice'
+    required: false
+    schema:
+      type: 'object'
+      properties:
+        products:
+          type: 'array'
+          items:
+            type: 'object'
+            required:
+            - product_id
+            - quantity_sold
+            properties:
+              product_id:
+                type: 'string'
+                example: 'prod_12345'
+              quantity_sold:
+                type: 'integer'
+                example: 2
+        discount:
+          type: 'number'
+          example: 50
+        due_date:
+          type: 'string'
+          format: 'date-time'
+          example: '2023-12-31T23:59:59Z'
+        discount_type:
+          type: 'string'
+          example: 'percentage' # or 'fixed'
+        tax:
+          type: 'number'
+          example: 100
+        message:
+          type: 'string'
+          example: 'Thank you for your business!'
   responses:
     201:
       description: 'Invoice created successfully'
