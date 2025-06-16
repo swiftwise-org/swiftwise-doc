@@ -89,7 +89,32 @@ put:
     description: 'Profile attributes to update as key-value pairs'
     required: true
     schema:
-      $ref: '../../definitions/UserProfile.yaml'
+      type: object
+      properties:
+        preferred_username:
+          type: 'string'
+        email:
+          type: 'string'
+        phone_number:
+          type: 'string'
+        family_name:
+          type: 'string'
+        given_name:
+          type: 'string'
+        name:
+          type: 'string'
+        nickname:
+          type: 'string'
+        gender:
+          type: 'string'
+        birthdate:
+          type: 'string'
+        address:
+          type: 'string'
+        locale:
+          type: 'string'
+        picture:
+          type: 'string'
   responses:
     200:
       description: 'Profile updated successfully'
