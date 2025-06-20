@@ -1,0 +1,65 @@
+get:
+  tags:
+  - 'customerHistory'
+  summary: 'Get a customerHistory by ID'
+  description: 'Retrieves a single customerHistory’s details by their ID.'
+  operationId: 'getcustomerHistoryById'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the customerHistory to retrieve'
+    required: true
+    type: 'string'
+  responses:
+    200:
+      description: 'customerHistory details retrieved successfully'
+      schema:
+        type: 'object'
+        properties:
+          data:
+            type: 'object'
+            properties:
+              customerHistory:
+                type: 'object'
+                properties:
+                  customerHistory_id:
+                    type: 'string'
+                    example: 'cust_12345'
+                  customerHistory_name:
+                    type: 'string'
+                    example: 'John Doe'
+                  email:
+                    type: 'string'
+                    example: 'johndoe@example.com'
+                  phone_number:
+                    type: 'string'
+                    example: '+1234567890'
+                  address:
+                    type: 'string'
+                    example: '01, Bren Street'
+          success:
+            type: 'boolean'
+            example: true
+
+    404:
+      description: 'customerHistory not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'customerHistory not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

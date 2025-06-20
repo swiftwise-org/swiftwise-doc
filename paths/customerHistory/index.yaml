@@ -1,0 +1,143 @@
+# post:
+#   tags:
+#   - 'customerHistory'
+#   summary: 'Create a new customerHistory'
+#   description: 'Registers a new customerHistory in the system.'
+#   operationId: 'createcustomerHistory'
+#   consumes:
+#   - 'application/json'
+#   produces:
+#   - 'application/json'
+#   parameters:
+#   - in: 'body'
+#     name: 'body'
+#     description: 'customerHistory details to create a new customerHistory'
+#     required: true
+#     schema:
+#       type: 'object'
+#       required:
+#       - first_name
+#       - last_name
+#       - email
+#       - phone_number
+#       properties:
+#         first_name:
+#           type: 'string'
+#           example: 'John'
+#         last_name:
+#           type: 'string'
+#           example: 'Doe'
+#         email:
+#           type: 'string'
+#           example: 'johndoe@example.com'
+#         phone_number:
+#           type: 'string'
+#           example: '+1234567890'
+#   responses:
+#     201:
+#       description: 'customerHistory created successfully'
+#       schema:
+#         type: 'object'
+#         properties:
+#           success:
+#             type: 'boolean'
+#             example: true
+#           message:
+#             type: 'string'
+#             example: 'customerHistory created successfully'
+#     400:
+#       description: 'Invalid input'
+#       schema:
+#         type: 'object'
+#         properties:
+#           success:
+#             type: 'boolean'
+#             example: false
+#           message:
+#             type: 'string'
+#             example: 'Invalid input provided'
+#     500:
+#       description: 'Internal server error'
+#       schema:
+#         type: 'object'
+#         properties:
+#           success:
+#             type: 'boolean'
+#             example: false
+#           message:
+#             type: 'string'
+#             example: 'Internal server error occurred'
+
+get:
+  tags:
+  - 'customerHistory'
+  summary: 'Get a list of customerHistorys'
+  description: 'Retrieves a list of all registered customerHistorys.'
+  operationId: 'getcustomerHistorys'
+  produces:
+  - 'application/json'
+  responses:
+    200:
+      description: 'List of customerHistorys retrieved successfully'
+      schema:
+        type: 'object'
+        properties:
+          data:
+            type: 'object'
+            properties:
+              customerHistories:
+                type: 'array'
+                items:
+                  type: 'object'
+                  properties:
+                    customerHistory_id:
+                      type: 'string'
+                      example: 'cust_12345'
+                    type:
+                      type: 'string'
+                      example: 'debt | payment'
+                    customer_id:
+                      type: 'string'
+                      example: 'cus_001'
+                    amount:
+                      type: 'number'
+                      example: 100
+                    invoice_id:
+                      type: 'string'
+                      example: 'invoice_001'
+              customer:
+                type: 'object'
+                properties:
+                  customer_id:
+                    type: 'string'
+                    example: 'cus_12345'
+                  customer_name:
+                    type: 'string'
+                    example: 'John Doe'
+                  balance:
+                    type: 'number'
+                    example: 100
+                  email:
+                    type: 'string'
+                    example: 'johndoe@example.com'
+                  phone_number:
+                    type: 'string'
+                    example: '+1234567890'
+                  address:
+                    type: 'string'
+                    example: '01, Bren Street'
+          success:
+            type: 'boolean'
+            example: true
+
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

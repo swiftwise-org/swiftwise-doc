@@ -1,0 +1,180 @@
+get:
+  tags:
+  - 'cash'
+  summary: 'Get a cash by ID'
+  description: 'Retrieves a single cash’s details by its ID.'
+  operationId: 'getcashById'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the cash to retrieve'
+    required: true
+    type: 'string'
+  responses:
+    200:
+      description: 'cash details retrieved successfully'
+      schema:
+        type: 'object'
+        properties:
+          data:
+            type: 'object'
+            properties:
+              cash:
+                type: 'object'
+                properties:
+                  cash_id:
+                    type: 'string'
+                    example: 'cat_wearable'
+                  amount:
+                    type: 'number'
+                    example: 100
+                  description:
+                    type: 'string'
+                    example: 'New expense'
+          success:
+            type: 'boolean'
+            example: true
+    404:
+      description: 'cash not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'cash not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+
+put:
+  tags:
+  - 'cash'
+  summary: 'Update an existing cash'
+  description: 'Allows modification of an existing cash’s details.'
+  operationId: 'updateCash'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the cash to update'
+    required: true
+    type: 'string'
+  - in: 'body'
+    name: 'body'
+    description: 'Updated cash details'
+    required: false
+    schema:
+      type: 'object'
+      properties:
+        amount:
+          type: 'number'
+          example: 100
+        description:
+          type: 'string'
+          example: 'New expense'
+  responses:
+    200:
+      description: 'cash updated successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'cash updated successfully'
+    400:
+      description: 'Invalid input'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid input provided'
+    404:
+      description: 'cash not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'cash not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+
+delete:
+  tags:
+  - 'cash'
+  summary: 'Delete a cash'
+  description: 'Deletes a cash from the system.'
+  operationId: 'deletecash'
+  parameters:
+  - in: 'path'
+    name: 'id'
+    description: 'ID of the cash to delete'
+    required: true
+    type: 'string'
+  responses:
+    200:
+      description: 'cash deleted successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'cash deleted successfully'
+    404:
+      description: 'cash not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'cash not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

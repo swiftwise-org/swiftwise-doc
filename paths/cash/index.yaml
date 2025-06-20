@@ -1,0 +1,106 @@
+post:
+  tags:
+  - 'cash'
+  summary: 'Create a new cash'
+  description: 'Adds a new cash to the system.'
+  operationId: 'createCash'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'body'
+    name: 'body'
+    description: 'cash details to create a new cash'
+    required: true
+    schema:
+      type: 'object'
+      required:
+      - amount
+      properties:
+        amount:
+          type: 'number'
+          example: 100
+        description:
+          type: 'string'
+          example: 'Products related to wearable technology.'
+  responses:
+    201:
+      description: 'cash created successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'cash created successfully'
+    400:
+      description: 'Invalid input'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid input provided'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
+
+get:
+  tags:
+  - 'cash'
+  summary: 'Get a list of cash'
+  description: 'Retrieves a list of all cash in the system.'
+  operationId: 'getcash'
+  produces:
+  - 'application/json'
+  responses:
+    200:
+      description: 'List of cash retrieved successfully'
+      schema:
+        type: 'object'
+        properties:
+          data:
+            type: 'object'
+            properties:
+              cash:
+                type: 'array'
+                items:
+                  type: 'object'
+                  properties:
+                    cash_id:
+                      type: 'string'
+                      example: 'cat_wearable'
+                    amount:
+                      type: 'number'
+                      example: 100
+                    description:
+                      type: 'string'
+                      example: 'New expenses'
+          success:
+            type: 'boolean'
+            example: true
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

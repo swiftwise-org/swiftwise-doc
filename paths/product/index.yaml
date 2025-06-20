@@ -19,8 +19,6 @@ post:
       - product_name
       - product_quantity
       - product_main_price
-      - product_purchase_cost
-      - product_available
       - category_id
       properties:
         product_name:
@@ -29,17 +27,10 @@ post:
         product_quantity:
           type: integer
           example: 30
-        product_available:
-          type: integer
-          example: 28
         product_main_price:
           type: number
           format: float
           example: 199.99
-        product_purchase_cost:
-          type: number
-          format: float
-          example: 120
         category_id:
           type: string
           example: 'cat_wearable'
@@ -111,6 +102,11 @@ get:
   - in: 'query'
     name: 'category_id'
     description: 'Fetching products by category'
+    required: false
+    type: 'string'
+  - in: 'query'
+    name: 'store_id'
+    description: 'Fetching products by store ID'
     required: false
     type: 'string'
   responses:

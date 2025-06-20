@@ -28,6 +28,10 @@ tags:
   description: 'Endpoints for managing sales and sales items'
 - name: 'customers'
   description: 'Endpoints for managing customers'
+- name: 'cash'
+  description: 'Endpoints for managing cash'
+- name: 'customerHistory'
+  description: 'Endpoints for managing customerHistory'
 - name: 'invoice'
   description: 'Endpoints for managing invoice'
 schemes:
@@ -81,6 +85,12 @@ paths:
     $ref: './paths/customers/index.yaml'
   /customers/{customer_id}:
     $ref: './paths/customers/{customer_id}.yaml'
+  /cash:
+    $ref: './paths/cash/index.yaml'
+  /cash/{cash_id}:
+    $ref: './paths/cash/{cash_id}.yaml'
+  /customerHistory/{customer_id}:
+    $ref: './paths/customerHistory/index.yaml'
   /invoice:
     $ref: './paths/invoice/index.yaml'
   /invoice/{invoice_id}:

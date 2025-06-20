@@ -77,112 +77,88 @@ put:
   tags:
   - 'invoice'
   summary: 'Update an invoice by ID'
-  description: 'Updates a single invoice’s details by their ID.'
+  description: 'Updates specific fields of an invoice. Only one of `status` or `amount_paid` may be sent at a time.'
   operationId: 'updateInvoiceById'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
   parameters:
   - in: 'path'
     name: 'id'
     description: 'ID of the invoice to update'
     required: true
-    schema:
-      type: 'string'
-  requestBody:
+    type: 'string'
+  - in: 'body'
+    name: 'body'
+    description: 'Update invoice amount paid or status'
     required: true
-    content:
-      application/json:
-        schema:
-          type: 'object'
-          properties:
-            customer_id:
-              type: 'string'
-              example: 'cus_12345'
-            products:
-              type: 'array'
-              items:
-                type: 'object'
-                properties:
-                  product_id:
-                    type: 'string'
-                    example: 'prod_12345'
+    schema:
+      type: 'object'
+      required:
+      - customer_id
+      properties:
+        customer_id:
+          type: 'string'
+          example: 'cus_12345'
+        status:
+          type: 'string'
+          description: 'Only allowed value is "paid" if provided'
+          enum: [ paid ]
+          example: 'paid'
+        amount_paid:
+          type: 'number'
+          description: 'Cannot be sent if status is provided'
+          example: 200
+        outstanding:
+          type: 'number'
+          description: 'Required if status is "paid"'
+          example: 0
   responses:
     200:
-      description: 'Invoice updated successfully'
-      content:
-        application/json:
-          schema:
-            type: 'object'
-            properties:
-              success:
-                type: 'boolean'
-                example: true
-              data:
-                type: 'object'
-                properties:
-                  invoice:
-                    type: 'object'
-                    properties:
-                      invoice_id:
-                        type: 'string'
-                        example: 'inv_12345'
-                      customer:
-                        type: 'object'
-                        properties:
-                          customer_id:
-                            type: 'string'
-                            example: 'cus_12345'
-                          customer_name:
-                            type: 'string'
-                            example: 'cus_12345'
-                      products:
-                        type: 'array'
-                        items:
-                          type: 'object'
-                          properties:
-                            product_id:
-                              type: 'string'
-                              example: 'prod_12345'
-                            product_name:
-                              type: 'string'
-                              example: 'Goog Watch'
+      description: 'Unit updated successfully'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: true
+          message:
+            type: 'string'
+            example: 'Unit updated successfully'
     400:
-      description: 'Bad request'
-      content:
-        application/json:
-          schema:
-            type: 'object'
-            properties:
-              success:
-                type: 'boolean'
-                example: false
-              message:
-                type: 'string'
-                example: 'Invalid request body'
+      description: 'Invalid input'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invalid input provided'
     404:
-      description: 'Invoice not found'
-      content:
-        application/json:
-          schema:
-            type: 'object'
-            properties:
-              success:
-                type: 'boolean'
-                example: false
-              message:
-                type: 'string'
-                example: 'Invoice not found'
+      description: 'Unit not found'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Unit not found'
     500:
       description: 'Internal server error'
-      content:
-        application/json:
-          schema:
-            type: 'object'
-            properties:
-              success:
-                type: 'boolean'
-                example: false
-              message:
-                type: 'string'
-                example: 'Internal server error occurred'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'
 
 delete:
   tags:

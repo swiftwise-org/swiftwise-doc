@@ -141,6 +141,11 @@ get:
     description: 'Pagination key for fetching the next set of results'
     required: false
     type: 'string'
+  - in: 'query'
+    name: 'range'
+    description: 'Fetching products by range (1d, 1m, 2m, 3m, 6m, long)'
+    required: false
+    type: 'string'
   responses:
     200:
       description: 'List of sales retrieved successfully'

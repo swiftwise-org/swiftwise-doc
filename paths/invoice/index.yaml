@@ -16,28 +16,41 @@ post:
     schema:
       type: 'object'
       required:
-      - amount
       - status
       - customer_id
+      - date_created
+      - due_date
+      - products
       properties:
-        amount:
-          type: 'number'
-          example: 1000
         status:
           type: 'string'
+          enum:
+          - paid
+          - unpaid
+          - not_fully_paid
           example: 'unpaid'
+        amount_paid:
+          type: 'number'
+          description: 'Required only if status is "not_fully_paid"'
+          example: 100
+        outstanding:
+          type: 'number'
+          description: 'Required only if status is "paid"'
+          example: 0
         customer_id:
           type: 'string'
           example: 'cus_12345'
-  - in: 'body'
-    name: 'Non required body'
-    description: 'Non required Invoice details to create a new invoice'
-    required: false
-    schema:
-      type: 'object'
-      properties:
+        date_created:
+          type: 'string'
+          format: 'date-time'
+          example: '2024-06-01T12:00:00Z'
+        due_date:
+          type: 'string'
+          format: 'date-time'
+          example: '2024-06-30T23:59:59Z'
         products:
           type: 'array'
+          minItems: 1
           items:
             type: 'object'
             required:
@@ -48,18 +61,24 @@ post:
                 type: 'string'
                 example: 'prod_12345'
               quantity_sold:
-                type: 'integer'
+                type: 'number'
                 example: 2
+  - in: 'body'
+    name: 'Non required body'
+    description: 'Non required Invoice details to create a new invoice'
+    required: false
+    schema:
+      type: 'object'
+      properties:
+        amount_paid:
+          type: 'number'
+          example: 100
         discount:
           type: 'number'
           example: 50
-        due_date:
-          type: 'string'
-          format: 'date-time'
-          example: '2023-12-31T23:59:59Z'
         discount_type:
           type: 'string'
-          example: 'percentage' # or 'fixed'
+          example: 'percentage'
         tax:
           type: 'number'
           example: 100
@@ -109,6 +128,28 @@ get:
   operationId: 'getInvoices'
   produces:
   - 'application/json'
+  parameters:
+  - in: 'query'
+    name: 'searchTerm'
+    description: 'Search term to filter products by name or other attributes'
+    required: false
+    type: 'string'
+  - in: 'query'
+    name: 'limit'
+    description: 'Number of products to return per page'
+    required: false
+    type: 'integer'
+    example: 10
+  - in: 'query'
+    name: 'nextKey'
+    description: 'Pagination key for fetching the next set of results'
+    required: false
+    type: 'string'
+  - in: 'query'
+    name: 'range'
+    description: 'Fetching products by range (1d, 1m, 2m, 3m, 6m, long)'
+    required: false
+    type: 'string'
   responses:
     200:
       description: 'List of invoices retrieved successfully'
