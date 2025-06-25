@@ -95,6 +95,8 @@ paths:
     $ref: './paths/invoice/index.yaml'
   /invoice/{invoice_id}:
     $ref: './paths/invoice/{invoice_id}.yaml'
+  /invoice/customer:
+    $ref: './paths/invoice/customer.yaml'
   /order:
     $ref: './paths/order/index.yaml'
   /order/{order_id}:

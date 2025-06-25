@@ -76,6 +76,18 @@ get:
   operationId: 'getcustomerHistorys'
   produces:
   - 'application/json'
+  parameters:
+  - in: 'query'
+    name: 'limit'
+    description: 'Number of histories to return per page'
+    required: false
+    type: 'integer'
+    example: 10
+  - in: 'query'
+    name: 'nextKey'
+    description: 'Pagination key for fetching the next set of results'
+    required: false
+    type: 'string'
   responses:
     200:
       description: 'List of customerHistorys retrieved successfully'
@@ -126,6 +138,15 @@ get:
                   address:
                     type: 'string'
                     example: '01, Bren Street'
+          pagination:
+            type: 'object'
+            properties:
+              nextKey:
+                type: 'string'
+                example: 'eyJwcm9kdWN0X2lkIjoiMTIzIn0='
+              limit:
+                type: 'integer'
+                example: 100
           success:
             type: 'boolean'
             example: true

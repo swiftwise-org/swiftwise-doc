@@ -1,0 +1,80 @@
+get:
+  tags:
+  - 'invoice'
+  summary: 'Get a invoice by Customer and statuses'
+  description: 'Retrieves a invoices by customer and statuses.'
+  operationId: 'getInvoiceByCustomer'
+  parameters:
+  - in: 'query'
+    name: 'customer_id'
+    description: 'Id of the customer invoice you want to retrieve'
+    required: true
+    type: 'string'
+  - in: 'query'
+    name: 'status'
+    description: 'An array of statuses of invoice to retrieve'
+    required: true
+    type: 'list'
+    example: [ 'unpaid', 'not_fully_paid' ]
+  responses:
+    200:
+      description: 'Invoice details retrieved successfully'
+      schema:
+        type: 'object'
+        properties:
+          data:
+            type: 'object'
+            properties:
+              invoice:
+                type: 'object'
+                properties:
+                  invoice_id:
+                    type: 'string'
+                    example: 'inv_12345'
+                  customer:
+                    type: 'object'
+                    properties:
+                      customer_id:
+                        type: 'string'
+                        example: 'cus_12345'
+                      customer_name:
+                        type: 'string'
+                        example: 'cus_12345'
+                  products:
+                    type: 'array'
+                    items:
+                      type: 'object'
+                      properties:
+                        product_id:
+                          type: 'string'
+                          example: 'prod_12345'
+                        product_name:
+                          type: 'string'
+                          example: 'Goog Watch'
+
+          success:
+            type: 'boolean'
+            example: true
+
+    404:
+      description: 'Invoice not found for the customer'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Invoice not found'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: 'object'
+        properties:
+          success:
+            type: 'boolean'
+            example: false
+          message:
+            type: 'string'
+            example: 'Internal server error occurred'

@@ -16,15 +16,15 @@ post:
     schema:
       type: 'object'
       required:
-      - first_name
-      - last_name
+      - customer_name
+      - address_name
       - email
       - phone_number
       properties:
-        first_name:
+        customer_name:
           type: 'string'
           example: 'John'
-        last_name:
+        address:
           type: 'string'
           example: 'Doe'
         email:
