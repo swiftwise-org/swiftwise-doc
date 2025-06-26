@@ -127,7 +127,7 @@ get:
   parameters:
   - in: 'query'
     name: 'searchTerm'
-    description: 'Search term to filter products by name or other attributes'
+    description: 'Search term to filter sales by total_items'
     required: false
     type: 'string'
   - in: 'query'
