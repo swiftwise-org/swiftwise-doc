@@ -150,6 +150,16 @@ get:
     description: 'Fetching products by range (1d, 1m, 2m, 3m, 6m, long)'
     required: false
     type: 'string'
+  - in: 'query'
+    name: 'customer_id'
+    description: 'Fetch by customer_id'
+    required: 'false'
+    type: 'string'
+  - in: 'query'
+    name: 'status'
+    description: 'Fetching by status'
+    required: false
+    type: 'list'
   responses:
     200:
       description: 'List of invoices retrieved successfully'
