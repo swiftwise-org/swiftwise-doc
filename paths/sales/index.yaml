@@ -201,6 +201,15 @@ get:
                   today_revenue:
                     type: 'integer'
                     example: 46
+                  prev_gross_sale:
+                    type: 'integer'
+                    example: 50
+                  prev_net_sale:
+                    type: 'integer'
+                    example: 46
+                  yesterday_revenue:
+                    type: 'integer'
+                    example: 46
                   range:
                     type: 'string'
                     example: '1d'
