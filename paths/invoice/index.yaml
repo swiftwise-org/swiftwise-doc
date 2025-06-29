@@ -157,9 +157,9 @@ get:
     type: 'string'
   - in: 'query'
     name: 'status'
-    description: 'Fetching by status'
+    description: 'Fetching by status "comma separated strings'
     required: false
-    type: 'list'
+    type: 'string'
   responses:
     200:
       description: 'List of invoices retrieved successfully'
@@ -197,27 +197,30 @@ get:
                           product_name:
                             type: 'string'
                             example: 'Goog Watch'
-              paid_total:
-                type: 'integer'
-                example: 100
-              unpaid_total:
-                type: 'integer'
-                example: 80
-              total:
-                type: 'integer'
-                example: 180
-              range:
-                type: 'string'
-                example: '1m'
-          pagination:
-            type: 'object'
-            properties:
-              nextKey:
-                type: 'string'
-                example: 'eyJwcm9kdWN0X2lkIjoiMTIzIn0='
-              limit:
-                type: 'integer'
-                example: 100
+              summary:
+                type: 'object'
+                properties:
+                  paid_total:
+                    type: 'integer'
+                    example: 100
+                  unpaid_total:
+                    type: 'integer'
+                    example: 80
+                  total:
+                    type: 'integer'
+                    example: 180
+                  range:
+                    type: 'string'
+                    example: '1m'
+              pagination:
+                type: 'object'
+                properties:
+                  nextKey:
+                    type: 'string'
+                    example: 'eyJwcm9kdWN0X2lkIjoiMTIzIn0='
+                  limit:
+                    type: 'integer'
+                    example: 100
           success:
             type: 'boolean'
             example: true

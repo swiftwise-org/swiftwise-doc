@@ -156,39 +156,39 @@ get:
             type: 'object'
             properties:
               sales:
+                type: 'array'
+                items:
+                  type: 'object'
+                  properties:
+                    sale_id:
+                      type: 'string'
+                      example: 'sale123'
+                    owner_id:
+                      type: 'string'
+                      example: 'user123'
+                    customer_id:
+                      type: 'string'
+                      example: 'customer123 or null'
+                    total_amount:
+                      type: 'integer'
+                      example: 400
+                    total_items:
+                      type: 'integer'
+                      example: 2
+                    discount:
+                      type: 'integer'
+                      example: 8
+                    created_at:
+                      type: 'string'
+                      format: 'date-time'
+                      example: '2023-10-01T12:00:00.000Z'
+                    updated_at:
+                      type: 'string'
+                      format: 'date-time'
+                      example: '2023-10-01T12:00:00.000Z'
+              summary:
                 type: 'object'
                 properties:
-                  items:
-                    type: 'array'
-                    items:
-                      type: 'object'
-                      properties:
-                        sale_id:
-                          type: 'string'
-                          example: 'sale123'
-                        owner_id:
-                          type: 'string'
-                          example: 'user123'
-                        customer_id:
-                          type: 'string'
-                          example: 'customer123 or null'
-                        total_amount:
-                          type: 'integer'
-                          example: 400
-                        total_items:
-                          type: 'integer'
-                          example: 2
-                        discount:
-                          type: 'integer'
-                          example: 8
-                        created_at:
-                          type: 'string'
-                          format: 'date-time'
-                          example: '2023-10-01T12:00:00.000Z'
-                        updated_at:
-                          type: 'string'
-                          format: 'date-time'
-                          example: '2023-10-01T12:00:00.000Z'
                   total_items:
                     type: 'integer'
                     example: 1
@@ -204,15 +204,15 @@ get:
                   range:
                     type: 'string'
                     example: '1d'
-          pagination:
-            type: 'object'
-            properties:
-              nextKey:
-                type: 'string'
-                example: 'eyJwcm9kdWN0X2lkIjoiMTIzIn0='
-              limit:
-                type: 'integer'
-                example: 100
+              pagination:
+                type: 'object'
+                properties:
+                  nextKey:
+                    type: 'string'
+                    example: 'eyJwcm9kdWN0X2lkIjoiMTIzIn0='
+                  limit:
+                    type: 'integer'
+                    example: 100
           success:
             type: 'boolean'
             example: true
