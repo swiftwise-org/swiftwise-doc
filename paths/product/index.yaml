@@ -143,70 +143,37 @@ get:
 
 components:
   schemas:
-    Variant:
-      type: object
-      properties:
-        quantity:
-          type: integer
-          example: 1
-        price:
-          type: number
-          example: 1000
-        name:
-          type: string
-          example: 'Red'
-    VariantTag:
-      type: object
-      properties:
-        type:
-          type: string
-          example: 'Color'
-        variants:
-          type: array
-          items:
-            $ref: '#/components/schemas/Variant'
+    Variations:
+      type: array
+      items:
+        type: object
+        properties:
+          quantity:
+            type: integer
+            example: 1
+          price:
+            type: number
+            example: 1000
+          color:
+            type: string
+            example: 'Red'
+
     VariantItem:
       type: object
       properties:
         quantity:
           type: integer
           example: 1
-        updated_at:
-          type: string
-          format: date-time
-          example: "2025-02-26T23:58:00.467Z"
-        created_at:
-          type: string
-          format: date-time
-          example: "2025-02-26T23:58:00.467Z"
-        variant_tag_id:
-          type: string
-          format: uuid
-          example: "eb8c284c-ac7b-4bdc-8fee-4aa8db1558ad"
         price:
           type: number
           example: 1000
-        name:
+        color:
           type: string
           example: "Red"
-        variant_id:
+        variation_id:
           type: string
           format: uuid
           example: "9d674fb4-9801-44c0-a8ab-647c596d5d7b"
-    VariantTagResponse:
-      type: object
-      properties:
-        type:
-          type: string
-          example: "Color"
-        variant_tag_id:
-          type: string
-          format: uuid
-          example: "eb8c284c-ac7b-4bdc-8fee-4aa8db1558ad"
-        variants:
-          type: array
-          items:
-            $ref: "#/components/schemas/VariantItem"
     UnitResponse:
       type: object
       properties:
@@ -277,8 +244,8 @@ components:
         unit_id:
           type: string
           example: 'unit_002'
-        variantTag:
-          $ref: '#/components/schemas/VariantTag'
+        variations:
+          $ref: '#/components/schemas/Variations'
     ProductOutput:
       type: object
       properties:
@@ -305,18 +272,14 @@ components:
         product_slug:
           type: 'string'
           example: 'smartwatch-pro'
-        other:
-          type: 'object'
-          properties:
-            color:
-              type: 'string'
-              example: 'silver'
-            water_resistant:
-              type: 'string'
-              example: 'Yes'
-            brand:
-              type: 'string'
-              example: 'WearTech'
+        unit:
+          $ref: '#/components/schemas/UnitResponse'
+        category:
+          $ref: '#/components/schemas/CategoryResponse'
+        variations:
+          type: 'array'
+          items:
+            $ref: '#/components/schemas/VariantItem'
         cover_url:
           type: 'string'
           example: 'https://example.com/images/smartwatch.jpg'

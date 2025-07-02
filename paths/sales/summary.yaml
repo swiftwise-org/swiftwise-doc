@@ -1,0 +1,40 @@
+get:
+  tags:
+  - 'sales'
+  summary: 'Get a sales summary'
+  description: 'Retrieves sales summary'
+  operationId: 'getSummary'
+  responses:
+    200:
+      description: 'Sales summary retrieved successfully'
+      schema:
+        type: 'object'
+        properties:
+          data:
+            type: 'object'
+            properties:
+              summary:
+                type: 'object'
+                properties:
+                  net_sales:
+                    type: 'number'
+                    example: 1000
+                  gross_sales:
+                    type: 'number'
+                    example: 1200
+                  today_revenue:
+                    type: 'number'
+                    example: 200
+                  gross_sale_percent:
+                    type: 'number'
+                    example: 20
+                  net_sale_percent:
+                    type: 'number'
+                    example: 15
+                  range:
+                    type: 'string'
+                    example: '1m'
+
+          success:
+            type: 'boolean'
+            example: true

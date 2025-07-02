@@ -81,6 +81,8 @@ paths:
     $ref: './paths/sales/quick_sale.yaml'
   /sales/quick_sale/{sale_id}:
     $ref: './paths/sales/update_quick_sale.yaml'
+  /sales/summary:
+    $ref: './paths/sales/summary.yaml'
   /customers:
     $ref: './paths/customers/index.yaml'
   /customers/{customer_id}:
@@ -97,6 +99,8 @@ paths:
     $ref: './paths/invoice/{invoice_id}.yaml'
   /invoice/customer:
     $ref: './paths/invoice/customer.yaml'
+  /invoice/summary:
+    $ref: './paths/invoice/summary.yaml'
   /order:
     $ref: './paths/order/index.yaml'
   /order/{order_id}:
