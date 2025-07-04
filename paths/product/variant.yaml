@@ -1,9 +1,9 @@
 patch:
   tags:
   - "product"
-  summary: "Update product variants"
-  description: "Updates an existing product variants with the provided details."
-  operationId: "updateProductVariants"
+  summary: "Update product variations"
+  description: "Updates an existing product variations with the provided details."
+  operationId: "updateProductVariations"
   consumes:
   - "application/json"
   produces:
@@ -11,13 +11,13 @@ patch:
   parameters:
   - in: 'body'
     name: 'body'
-    description: 'Details to update product variants'
+    description: 'Details to update product variations'
     required: true
     schema:
-      $ref: "#/components/schemas/ProductVariantsUpdateInput"
+      $ref: "#/components/schemas/ProductVariationsUpdateInput"
   responses:
     200:
-      description: "Product variants updated successfully"
+      description: "Product variations updated successfully"
       schema:
         type: object
         properties:
@@ -26,7 +26,7 @@ patch:
             example: true
           message:
             type: string
-            example: "Product variants updated successfully"
+            example: "Product variations updated successfully"
     400:
       description: "Invalid input"
       schema:
@@ -39,7 +39,7 @@ patch:
             type: string
             example: "Invalid input provided"
     404:
-      description: "Product variants not found"
+      description: "Product variations not found"
       schema:
         type: object
         properties:
@@ -48,7 +48,7 @@ patch:
             example: false
           message:
             type: string
-            example: "Product variants not found"
+            example: "Product variations not found"
     500:
       description: "Internal server error"
       schema:
@@ -66,11 +66,11 @@ components:
     VariantUpdateItem:
       type: object
       required:
-      - variant_id
+      - variation_id
       - price
       - quantity
       properties:
-        variant_id:
+        variation_id:
           type: string
           format: uuid
           example: "9d674fb4-9801-44c0-a8ab-647c596d5d7b"
@@ -80,22 +80,17 @@ components:
         quantity:
           type: integer
           example: 1
-    ProductVariantsUpdateInput:
+    ProductVariationsUpdateInput:
       type: object
       required:
       - product_id
-      - variant_tag_id
-      - variants
+      - variations
       properties:
         product_id:
           type: string
           format: uuid
           example: "76260551-9493-4e8a-86b2-45746e65cc09"
-        variant_tag_id:
-          type: string
-          format: uuid
-          example: "eb8c284c-ac7b-4bdc-8fee-4aa8db1558ad"
-        variants:
+        variations:
           type: array
           items:
             $ref: "#/components/schemas/VariantUpdateItem"

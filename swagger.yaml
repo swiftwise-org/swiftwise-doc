@@ -57,7 +57,7 @@ paths:
     $ref: './paths/product/index.yaml'
   /product/{product_id}:
     $ref: './paths/product/{product_id}.yaml'
-  /product/variants:
+  /product/variations:
     $ref: './paths/product/variant.yaml'
   /category:
     $ref: './paths/category/index.yaml'
