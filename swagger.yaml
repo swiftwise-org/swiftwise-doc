@@ -59,6 +59,8 @@ paths:
     $ref: './paths/product/{product_id}.yaml'
   /product/variations:
     $ref: './paths/product/variant.yaml'
+  /product/bulk_upload:
+    $ref: './paths/product/bulk_upload.yaml'
   /category:
     $ref: './paths/category/index.yaml'
   /category/{category_id}:

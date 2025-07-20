@@ -1,0 +1,259 @@
+post:
+  tags:
+  - 'product'
+  summary: 'Bulk upload products'
+  description: 'Uploads multiple products at once to the inventory system.'
+  operationId: 'bulkProductUpload'
+  consumes:
+  - 'application/json'
+  produces:
+  - 'application/json'
+  parameters:
+  - in: 'body'
+    name: 'Bulk Product Upload Payload'
+    description: 'Array of products to be uploaded'
+    required: true
+    schema:
+      type: object
+      required:
+      - products
+      properties:
+        products:
+          type: array
+          items:
+            type: object
+            required:
+            - product_name
+            - product_quantity
+            - product_main_price
+            - category_id
+            properties:
+              product_name:
+                type: string
+                example: 'Smartwatch Pro'
+              product_quantity:
+                type: integer
+                example: 30
+              product_main_price:
+                type: number
+                format: float
+                example: 199.99
+              category_id:
+                type: string
+                example: 'cat_wearable'
+              product_description:
+                type: string
+                example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
+              product_status:
+                type: string
+                enum:
+                - active
+                - inactive
+                example: 'active'
+              track_inventory:
+                type: boolean
+                example: true
+              cover_url:
+                type: string
+                example: 'https://example.com/images/smartwatch.jpg'
+              product_barcode:
+                type: string
+                example: '9876543210987'
+              unit_id:
+                type: string
+                example: 'unit_002'
+              variations:
+                $ref: '#/components/schemas/Variations'
+  responses:
+    201:
+      description: 'Products uploaded successfully'
+      schema:
+        type: object
+        properties:
+          success:
+            type: boolean
+            example: true
+          message:
+            type: string
+            example: 'Bulk product upload completed'
+    400:
+      description: 'Invalid input'
+      schema:
+        type: object
+        properties:
+          success:
+            type: boolean
+            example: false
+          message:
+            type: string
+            example: 'Some product entries were invalid'
+    500:
+      description: 'Internal server error'
+      schema:
+        type: object
+        properties:
+          success:
+            type: boolean
+            example: false
+          message:
+            type: string
+            example: 'Internal server error occurred'
+
+components:
+  schemas:
+    Variations:
+      type: array
+      items:
+        type: object
+        properties:
+          quantity:
+            type: integer
+            example: 1
+          price:
+            type: number
+            example: 1000
+          color:
+            type: string
+            example: 'Red'
+
+    VariantItem:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          example: 1
+        price:
+          type: number
+          example: 1000
+        color:
+          type: string
+          example: "Red"
+        variation_id:
+          type: string
+          format: uuid
+          example: "9d674fb4-9801-44c0-a8ab-647c596d5d7b"
+    UnitResponse:
+      type: object
+      properties:
+        unit_id:
+          type: string
+          format: uuid
+          example: "ca2ddbdd-3e23-439b-8430-3714fe93feb5"
+        abbreviation:
+          type: string
+          example: "pc"
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-01-31T20:23:32.346Z"
+        unit_name:
+          type: string
+          example: "Piece"
+        owner_id:
+          type: string
+          format: uuid
+          example: "18017360-3051-70b6-7071-b1ca6639d413"
+    CategoryResponse:
+      type: object
+      properties:
+        category_description:
+          type: string
+          example: "Smart phones"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2025-02-26T23:36:11.337Z"
+        category_id:
+          type: string
+          format: uuid
+          example: "dedb8ac0-309f-4977-8ce3-db60bc8ce66a"
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-02-26T23:36:11.337Z"
+        category_name:
+          type: string
+          example: "Smart Phones"
+        owner_id:
+          type: string
+          format: uuid
+          example: "18017360-3051-70b6-7071-b1ca6639d413"
+    ProductInput:
+      type: object
+      properties:
+        product_description:
+          type: string
+          example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
+        product_status:
+          type: string
+          enum:
+          - 'active'
+          - 'inactive'
+          example: 'active'
+        track_inventory:
+          type: boolean
+          example: true
+        cover_url:
+          type: string
+          example: 'https://example.com/images/smartwatch.jpg'
+        product_barcode:
+          type: string
+          example: '9876543210987'
+        unit_id:
+          type: string
+          example: 'unit_002'
+        variations:
+          $ref: '#/components/schemas/Variations'
+    ProductOutput:
+      type: object
+      properties:
+        product_main_price:
+          type: 'number'
+          format: 'float'
+          example: 199.99
+        category_id:
+          type: 'string'
+          example: 'cat_wearable'
+        product_quantity:
+          type: 'integer'
+          example: 30
+        product_status:
+          type: 'string'
+          enum: [ 'active', 'inactive' ]
+          example: 'active'
+        product_name:
+          type: 'string'
+          example: 'Smartwatch Pro'
+        track_inventory:
+          type: 'boolean'
+          example: true
+        product_slug:
+          type: 'string'
+          example: 'smartwatch-pro'
+        unit:
+          $ref: '#/components/schemas/UnitResponse'
+        category:
+          $ref: '#/components/schemas/CategoryResponse'
+        variations:
+          type: 'array'
+          items:
+            $ref: '#/components/schemas/VariantItem'
+        cover_url:
+          type: 'string'
+          example: 'https://example.com/images/smartwatch.jpg'
+        product_barcode:
+          type: 'string'
+          example: '9876543210987'
+        product_purchase_cost:
+          type: 'number'
+          format: 'float'
+          example: 120
+        product_available:
+          type: 'integer'
+          example: 28
+        unit_id:
+          type: 'string'
+          example: 'unit_002'
+        product_description:
+          type: 'string'
+          example: 'Advanced smartwatch with fitness tracking and heart rate monitoring.'
